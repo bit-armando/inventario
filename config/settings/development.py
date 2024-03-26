@@ -1,3 +1,5 @@
+import os
+
 from .base import *
 
 SECRET_KEY = 'admin123'
@@ -15,4 +17,7 @@ DATABASES = {
 }
 
 
-MIDDLEWARE = BASE_MIDDLEWARE
+
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'

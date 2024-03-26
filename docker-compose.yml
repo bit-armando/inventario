@@ -8,16 +8,16 @@ services:
       - "8000:8000"
     volumes:
       - .:/app
-    depends_on:
-      - postgres
+  #   depends_on:
+  #     - postgres
   
-  postgres:
-    image: postgres:16.2-alpine3.19
-    ports:
-      - "5432:5432"
-    volumes:
-      - ./database:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
+  # postgres:
+  #   image: postgres:16.2-alpine3.19
+  #   ports:
+  #     - "5432:5432"
+  #   volumes:
+  #     - ./database:/var/lib/postgresql/data
+  #   environment:
+  #     - POSTGRES_DB=postgres
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=postgres

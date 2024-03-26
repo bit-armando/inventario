@@ -40,7 +40,8 @@ BASE_APPS = [
 ]
 
 LOCAL_APPS = [
-    'apps.core'
+    'apps.core',
+    'home',
 ]
 
 TRHIRD_APPS = []
