@@ -29,6 +29,9 @@ class Producto(models.Model):
 class Inventario(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
+    
+    def __str__(self):
+        return self.producto.descripcion
 
 class Entradas(models.Model):
     id_entrada = models.CharField(primary_key=True, max_length=10)
