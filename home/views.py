@@ -1,3 +1,4 @@
+from django.views.generic import ListView
 from django.http import HttpResponse
 
 from .models import *
@@ -59,3 +60,13 @@ def resgistar_salida(request):
     # TODO crear return donde redireccione a la pagina principal
     
 #TODO crear una vista para mostrar los productos en inventario
+
+
+# class MostrarProductos(ListView):
+#     model = Producto
+#     # template_name = 'home/productos.html'
+#     context_object_name = 'productos'
+#     paginate_by = 10
+    
+#     def get_queryset(self):
+#         return Producto.objects.all()

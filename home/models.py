@@ -9,11 +9,9 @@ class Tipo_empleado(models.Model):
         return self.tipo
     
 class Usuario(models.Model):
-    # id_usuario = models.CharField(primary_key=True)
     id_usuario = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=50)
     apellido = models.CharField(max_length=50)
-    # email = models.EmailField(max_length=255)
     telefono = models.CharField(max_length=10)
     direccion = models.CharField(max_length=255)
     contrasena = models.CharField(max_length=50)
@@ -50,6 +48,7 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=50, default='')
     descripcion = models.CharField(max_length=255)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
+    #TODO agregar precio venta
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default='')
     #TODO agregar imagen
@@ -67,7 +66,6 @@ class Inventario(models.Model):
     
 
 class Entrada(models.Model):
-    # id_entrada = models.CharField(primary_key=True, max_length=10)
     id_entrada = models.AutoField(primary_key=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -81,7 +79,6 @@ class Entrada(models.Model):
     
 
 class Salida(models.Model):
-    # id_salida = models.CharField(primary_key=True, max_length=10)
     id_salida = models.AutoField(primary_key=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
