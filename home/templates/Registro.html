@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de cuentas</title>
+
+    <link rel="stylesheet" href="registro.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="Logo autorizado GC.png" alt="Logo de GCDistribuidora" class="logo">
+            <nav>
+                <p>Sistema de Inventario</p>
+            </nav>
+        </div>
+    </header>
+    <section id="General">
+        <div class="container">
+            <h1>Registrar Cuenta</h1>
+            <p>¿Ya cuenta con un perfil?</p>
+            <a href="Inicio Sesion.html">Iniciar Sesion</a>
+            
+            <div class="input">
+                <form method="post" action="#">
+                    Nombre completo: <br>
+                    <input name="nombre" type="text" />
+                </form>
+
+                <form method="post" action="#">
+                    Nombre de usuario: <br>
+                    <input name="usuario" type="text" />
+                </form>
+    
+                <form method="post" action="#">
+                    Contraseña: <br>
+                    <input name="contraseña" type="password" />
+                </form>
+
+                <form action="#" id="menu">
+                    <label for="user">Tipo de usuario: <br></label>
+                    <select name="tipo-usuario" id="tipo-user">
+                        <option value="administrador">Administrador</option>
+                        <option value="empleado" selected>Empleado</option>
+                    </select>
+                </form>
+            </div>
+
+            <button id="inicio-sesion">Registrarse</button>
+        </div>
+    </section>
+</body>
+</html>
