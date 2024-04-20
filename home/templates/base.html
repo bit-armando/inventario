@@ -1,0 +1,30 @@
+{% comment %} 
+Bloques:
+    - title: Título de la página
+    - content: Contenido de la página
+
+{% endcomment %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+
+    <link rel="stylesheet" href="{% static "css/base.css" %}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="Logo autorizado GC.png" alt="Logo de GCDistribuidora" class="logo">
+            <nav>
+                <p>Sistema de Inventario</p>
+            </nav>
+        </div>
+    </header>
+    {% block content %}{% endblock content %}
+</body>
+</html>

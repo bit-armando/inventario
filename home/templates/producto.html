@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Producto{% endblock title %}
+
+{% block content %}
+<section id="General">
+    <div class="container">
+        <h1>Agregar Producto</h1>
+        <div class="input">
+            <form action="post" action="#" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+
+                <p>Nombre:</p>
+                <input type="text" name="nombre">
+                <p>Descripcion</p>
+                <input type="text" name="descripcion">
+                <p>Precio unitario</p>
+                <input type="number" name="precio_unitario">
+                <p>Precio venta</p>
+                <input type="number" name="precio_venta">
+                <p>Categoria</p>
+                <select name="categoria">
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <p>Proveedor</p>
+                <select name="proveedor">
+                    {% for proveedor in proveedores %}
+                        <option value="{{ proveedor.nombre }}">{{ proveedor.nombre }}</option>
+                    {% endfor %}
+                </select>
+                <p>Imagen</p>
+                <input type="file" name="imagen" accept="image/*">
+
+                <button>
+                    <input type="submit" value="Agregar Producto">
+                </button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+<section id="General">
+    <div class="container">
+        <h1>Iniciar Sesion</h1>
+        
+        <div class="input">
+            <form method="post" action="#">
+                {% csrf_token %}
+                {{ form.as_p }}
+                
+                Usuario: <br>
+                <input name="usuario" type="text" />
+                <br>
+                Contraseña: <br>
+                <input name="contraseña" type="password" />
+                <br>
+                <div class="container">
+                    <button type="submit" id="inicio-sesion">Iniciar Sesion</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock content %}

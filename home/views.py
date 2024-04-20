@@ -1,30 +1,37 @@
 from django.views.generic import ListView
+from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import *
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'IniciarSesion.html')
 
 
-def add_user(request):
-    if request == 'POST':
-        nombre = request.POST['nombre']
-        apellido = request.POST['apellido']
-        telefono = request.POST['telefono']
-        direccion = request.POST['direccion']
-        contrasena = request.POST['contrasena']
-        Tipo_empleado = request.POST['tipo_empleado']
-        
-        Usuario(nombre=nombre, apellido=apellido, 
-                telefono=telefono, direccion=direccion,
-                contrasena=contrasena,
-                tipo_empleado=Tipo_empleado).save()
+def add_product(request):
+    categorias = Categoria.objects.all()
+    proveedores = Proveedor.objects.all()
     
-    # TODO crear un formulario para agregar un usuario
+    if request.method == 'POST':
+        nombre = request.POST['nombre']
+        descripcion = request.POST['descripcion']
+        precio_unitario = request.POST['precio_unitario']
+        precio_venta = request.POST['precio_venta']
+        categoria = request.POST['categoria']
+        proveedor = request.POST['proveedor']
+        imagen = request.FILES['imagen']
+        
+        Producto(nombre=nombre, descripcion=descripcion, 
+                 precio_unitario=precio_unitario, precio_venta=precio_venta, 
+                 categoria=categoria, proveedor=proveedor, imagen=imagen).save()
+    
+    return render(request, 'producto.html', 
+                  {'categorias': categorias,
+                   'proveedores': proveedores})
+        
+    # TODO crear un formulario para agregar un producto
     # TODO crear return donde redireccione a la pagina principal
-    # TODO hashear la contraseña
     
 
 def registrar_entrada(request):

@@ -179,3 +179,5 @@ staticfiles/
 # Ignore __pycache__ folders
 __pycache__/
 migrations/
+
+*.ipynb
