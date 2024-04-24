@@ -1,14 +1,16 @@
 from django.contrib.auth.hashers import make_password
 from django.db import models
 
+
 class Tipo_empleado(models.Model):
     # Vista Admin
     id_empleado = models.AutoField(primary_key=True)
     tipo = models.CharField(max_length=50)
-    
+
     def __str__(self):
         return self.tipo
-    
+
+
 class Usuario(models.Model):
     # Vista Admin
     id_usuario = models.AutoField(primary_key=True)
@@ -22,11 +24,12 @@ class Usuario(models.Model):
 
     def __str__(self):
         return self.nombre + " " + self.apellido
-    
+
     def save(self, *args, **kwargs):
         self.contrasena = make_password(self.contrasena)
-        super().save(*args, **kwargs)    
-    
+        super().save(*args, **kwargs)
+
+
 class Proveedor(models.Model):
     # Vista Admin
     id_proveedor = models.AutoField(primary_key=True)
@@ -36,16 +39,16 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return self.nombre
-    
-    
+
+
 class Categoria(models.Model):
     # Vista Admin
     id_categoria = models.AutoField(primary_key=True)
     nombre = models.CharField(max_length=100)
-    
+
     def __str__(self):
         return self.nombre
-    
+
 
 class Producto(models.Model):
     # Vista Admin
@@ -53,22 +56,25 @@ class Producto(models.Model):
     nombre = models.CharField(max_length=50, default='')
     descripcion = models.CharField(max_length=255)
     precio_unitario = models.DecimalField(max_digits=10, decimal_places=2)
-    precio_venta = models.DecimalField(max_digits=10, decimal_places=2)
+    precio_venta = models.DecimalField(
+        max_digits=10, decimal_places=2, default=0.00)
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE, default='')
-    imagen = models.ImageField(upload_to='productos/', default='productos/default.jpg')
+    proveedor = models.ForeignKey(
+        Proveedor, on_delete=models.CASCADE, default='')
+    imagen = models.ImageField(
+        upload_to='productos/', default='productos/default.jpg')
 
     def __str__(self):
         return self.nombre
-    
+
 
 class Inventario(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-    
+
     def __str__(self):
         return self.producto.descripcion
-    
+
 
 class Entrada(models.Model):
     id_entrada = models.AutoField(primary_key=True)
@@ -81,7 +87,7 @@ class Entrada(models.Model):
 
     def __str__(self):
         return self.fecha
-    
+
 
 class Salida(models.Model):
     id_salida = models.AutoField(primary_key=True)
