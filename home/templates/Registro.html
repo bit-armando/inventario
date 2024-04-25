@@ -4,10 +4,11 @@
 
 {% block content %}
 <section id="General">
+    <!--Eliminar este HTML por cuestiones de administrador-->
     <div class="container">
         <h1>Registrar Cuenta</h1>
         <p>¿Ya cuenta con un perfil?</p>
-        <a href="Inicio Sesion.html">Iniciar Sesion</a>
+        <a href="{% url 'inicio' %}">Iniciar Sesion</a>
         
         <div class="input">
             <form method="post" action="#">

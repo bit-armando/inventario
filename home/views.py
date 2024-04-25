@@ -6,13 +6,13 @@ from .models import *
 
 
 def index(request):
-    return render(request, 'IniciarSesion.html')
+    return render(request, 'iniciarSesion.html')
 
 
 def add_product(request):
     categorias = Categoria.objects.all()
     proveedores = Proveedor.objects.all()
-    
+
     if request.method == 'POST':
         nombre = request.POST['nombre']
         descripcion = request.POST['descripcion']
@@ -21,18 +21,18 @@ def add_product(request):
         categoria = request.POST['categoria']
         proveedor = request.POST['proveedor']
         imagen = request.FILES['imagen']
-        
-        Producto(nombre=nombre, descripcion=descripcion, 
-                 precio_unitario=precio_unitario, precio_venta=precio_venta, 
+
+        Producto(nombre=nombre, descripcion=descripcion,
+                 precio_unitario=precio_unitario, precio_venta=precio_venta,
                  categoria=categoria, proveedor=proveedor, imagen=imagen).save()
-    
-    return render(request, 'producto.html', 
+
+    return render(request, 'producto.html',
                   {'categorias': categorias,
                    'proveedores': proveedores})
-        
+
     # TODO crear un formulario para agregar un producto
     # TODO crear return donde redireccione a la pagina principal
-    
+
 
 def registrar_entrada(request):
     if request == 'POST':
@@ -40,33 +40,34 @@ def registrar_entrada(request):
         producto = request.POST['producto']
         cantidad = request.POST['cantidad']
         cantidad = request.POST['cantidad']
-        #TODO guardar solo fecha
+        # TODO guardar solo fecha
         fecha = request.POST['fecha']
         descripcion = request.POST['descripcion']
-        #TODO guardar a la persona que hizo la entrada
-        
-        Entrada(proveedor=provedor, producto=producto, 
+        # TODO guardar a la persona que hizo la entrada
+
+        Entrada(proveedor=provedor, producto=producto,
                 cantidad=cantidad, fecha=fecha, descripcion=descripcion).save()
-    
+
     # TODO crear un formulario para registrar una entrada
     # TODO crear return donde redireccione a la pagina principal
-    
+
+
 def resgistar_salida(request):
     if request == 'POST':
         producto = request.POST['producto']
         cantidad = request.POST['cantidad']
-        #TODO guardar solo fecha
+        # TODO guardar solo fecha
         fecha = request.POST['fecha']
         descripcion = request.POST['descripcion']
-        #TODO guardar a la persona que hizo la salida
-        
-        Salida(producto=producto, cantidad=cantidad, 
+        # TODO guardar a la persona que hizo la salida
+
+        Salida(producto=producto, cantidad=cantidad,
                fecha=fecha, descripcion=descripcion).save()
-        
+
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
-    
-#TODO crear una vista para mostrar los productos en inventario
+
+# TODO crear una vista para mostrar los productos en inventario
 
 
 # class MostrarProductos(ListView):
@@ -74,6 +75,6 @@ def resgistar_salida(request):
 #     # template_name = 'home/productos.html'
 #     context_object_name = 'productos'
 #     paginate_by = 10
-    
+
 #     def get_queryset(self):
 #         return Producto.objects.all()
