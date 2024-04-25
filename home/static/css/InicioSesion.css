@@ -29,6 +29,7 @@ button{
 
 button:hover{
     background-color: #ff8c2e;
+    cursor: pointer;
 }
 
 .container{
@@ -98,7 +99,8 @@ section a, p{
     font-size: 1em;
 }
 
-section .input{
+section form{
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
@@ -111,4 +113,22 @@ section input{
     border-radius: 15px;
     margin-bottom: 15px;
     background-color: #bdbec0;
+}
+
+section #inicio-sesion{
+    margin-top: 20px;
+    width: fit-content;
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px 25px;
+    border-radius: 15px;
+    border: 2px solid rgba(0,0,0,0.3);
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
+    color: black;
+    background-color: #f27506;
+}
+
+section #inicio-sesion:hover{
+    background-color: #ff8c2e;
+    cursor: pointer;
 }
