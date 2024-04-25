@@ -1,13 +1,9 @@
- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventario</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="VentanaPrincipal.css">
-</head>
-<body>
+{% load static %}
+
+{% block content %}
+<section>
     <header>
         <!-- Insertar el header que se encuentra en los codigos de inicio de sesion y registro -->
     </header>
@@ -24,7 +20,7 @@
                 <div id="inventario-total">
                     <p>Total Inventario</p>
                     <hr>
-                    <p id="total">$14,322.80</p>
+                    <p id="total">$$$</p>
                 </div>
             </div>
 
@@ -49,21 +45,23 @@
                 <div id="productos">
                     <div class="ubicacion-cat">
                         <a id="link-general" href="#">General</a>
-                        <img id="right" src="right-arrow.png" alt="conector a las categorias en la seccion de los productos">
+                        <img id="right" src="{% static "right-arrow.png" %}" style="height: 50px; width:50px" 
+                             alt="Conector a las categorias en la seccion de los productos" 
+                             class="imagen" style="height: 100px; width:100px"/>
                         <p>Categoria 1</p>
                     </div>
                     <div class="productos-img">
                         <div class="Producto">
                             <a class="boton-info" href="#" onclick="window.modal1.showModal();">
-                                <img src="boton-de-informacion.png" alt="">
+                                <img src="{% static "boton-de-informacion.png" %}" alt="Imagen de informacion" class="imagen" style="height: 50px; width:50px"/>
                             </a>
                             <dialog class="modal" id="modal1">
                                 <div class="info-mod">
                                     <h2>Nombre producto</h2>
-                                    <p>Clave:</p>
-                                    <p>Precio de compra:</p>
-                                    <p>Precio sin IVA:</p>
-                                    <p>Descripcion:</p>
+                                    <p>Clave: {{clave}}</p>
+                                    <p>Precio de compra: {{precioCompra}}</p>
+                                    <p>Precio sin IVA: {{precioVenta}}</p>
+                                    <p>Descripcion: {{descripcion}}</p>
                                     <div class="compras-ventas">
                                         <p>Compras:</p>
                                         <p>Ventas:</p>
@@ -71,7 +69,7 @@
                                     <button onclick="window.modal1.close()">Cerrar</button>
                                 </div>
                             </dialog>
-                            <img class="imagen" src="image.png" />
+                            <img class="imagen" src="{% static "image.png" %}" class="imagen" style="height:50px; width:50px"/>
                             <div class="Texto">
                                 <p class="prod-nom">Nombre</p>
                                 <p class="prod-pre-ven">Precio de Venta</p>
@@ -82,7 +80,7 @@
 
                         <div class="Producto">
                             <a class="boton-info" href="#" onclick="window.modal2.showModal();">
-                                <img src="boton-de-informacion.png" alt="">
+                                <img src="{% static "boton-de-informacion.png" %}" alt="" class="imagen" style="height: 50px; width:50px">
                             </a>
                             <dialog class="modal" id="modal2">
                                 <div class="info-mod">
@@ -98,7 +96,7 @@
                                     <button onclick="window.modal2.close()">Cerrar</button>
                                 </div>
                             </dialog>
-                            <img class="imagen" src="image.png" />
+                            <img class="imagen" src="{% static "image.png" %}" class="imagen" style="height: 50px; width:50px"/>
                             <div class="Texto">
                                 <p class="prod-nom">Nombre</p>
                                 <p class="prod-pre-ven">Precio de Venta</p>
@@ -111,5 +109,6 @@
             </div>
         </div>
     </section>
-</body>
-</html>
+</section>
+{% endblock %}
+{% comment %} </html> {% endcomment %}

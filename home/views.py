@@ -5,6 +5,12 @@ from django.http import HttpResponse
 from .models import *
 
 
+clave = Producto.id_producto
+precioCompra = Producto.precio_unitario
+precioVenta = Producto.precio_venta
+descripcion = Producto.descripcion
+
+
 def index(request):
     return render(request, 'iniciarSesion.html')
 
@@ -69,6 +75,9 @@ def resgistar_salida(request):
 
 # TODO crear una vista para mostrar los productos en inventario
 
+
+def ventana_principal(request):
+    return (render(request, 'VentanaPrincipal.html'))
 
 # class MostrarProductos(ListView):
 #     model = Producto
