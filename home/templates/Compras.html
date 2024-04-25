@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compras</title>
+
+    <link rel="stylesheet" href="Compras.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="Logo autorizado GC.png" alt="Logo de GCDistribuidora" class="logo">
+            <div>
+                <p>Inventario</p>
+                <hr>
+                <img src="image.png" alt="Imagen de usuario" id="usuario-img">
+                <nav>
+                    <input type="checkbox" id="menu">
+                    <label for="menu"> ☰ </label>
+                    <ul>
+                        <li>Link 1</li>
+                        <li>Link 2</li>
+                        <li>Link 3</li>
+                        <li>Link 4</li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <section class="general">
+        <div class="container">
+            <div class="buscador-y-botones">
+                <a href="VentanaPrincipal.html">
+                    <button id="inventario">Inventario</button>
+                </a>
+                <a href="Ventas.html">
+                    <button id="ventas">Ventas</button>
+                </a>
+                <a href="Proveedores.html">
+                    <button id="proveedores">Proveedores</button>
+                </a>
+                <a href="#" onclick="window.modal.showModal();">
+                    <button id="registro-compra">Registrar Compra</button>
+                </a>
+
+                <dialog class="modal" id="modal">
+                    <form method="dialog" action="#">
+                        <div class="contenido">
+                            Nombre Producto: <br>
+                            <input name="nombre-prod" type="text" />
+                            <br>
+                            Clave: <br>
+                            <input name="clave-prod" type="text" />
+                            <br>
+                            Precio de compra: <br>
+                            <input name="precio-com" type="text" />
+                            <br>
+                            Descripción: <br>
+                            <textarea name="desc" cols="30" rows="10"></textarea>
+                            <br>
+                            Precio sin IVA: <br>
+                            <input name="precio-n-iva" type="text" />
+                            <br>
+                            Cantidad a ingresar: <br>
+                            <input name="cant" type="text" />
+                            <br>
+                            <label for="categoria">Categoría: <br></label>
+                            <select name="categoria" id="categorias">
+                                <option value="textil">Textil</option>
+                                <option value="varios-seri" selected>Varios Serigrafia</option>
+                                <option value="tampo" selected>Tampografia</option>
+                            </select>
+                            <br>
+                            <label for="proveedor">Proveedor: <br></label>
+                            <select name="proveedor" id="proveedores">
+                                <option value="esteren">Esteren</option>
+                                <option value="z-gas" selected>Z-Gas</option>
+                                <option value="padprint" selected>PadPrint</option>
+                            </select>
+                        </div>
+                        <div class="boton-salida">
+                            <input class="boton-input" type="submit" value="Generar Venta">
+                            <button onclick="window.modal.close()">Cerrar</button>
+                        </div>
+                    </form>
+                </dialog>
+
+                <form method="post" action="#">
+                    <input id="buscador" name="buscador" type="search" placeholder="Buscar compra"/>
+                </form>
+                <div id="inventario-total">
+                    <p>Total</p>
+                    <hr>
+                    <p id="total">$14,322.80</p>
+                </div>
+            </div>
+
+            <div class="tabla-compras">
+                <table>
+                    <tr>
+                        <th>Categoría</th>
+                        <th>Clave</th>
+                        <th>Costo unitario</th>
+                        <th>Día</th>
+                        <th>Mes</th>
+                        <th>Año</th>
+                        <th>Descripción</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                    </tr>
+                    <tr>
+                        <td>Textil Ahulada/GMS</td>
+                        <td>G512</td>
+                        <td>$18.50</td>
+                        <td>Lunes</td>
+                        <td>Octubre</td>
+                        <td>2020</td>
+                        <td>Lorem ipsum</td>
+                        <td>5</td>
+                        <td>$120.6</td>
+                    </tr>
+                    <tr>
+                        <td>Textil Ahulada/GMS</td>
+                        <td>G512</td>
+                        <td>$18.50</td>
+                        <td>Lunes</td>
+                        <td>Octubre</td>
+                        <td>2020</td>
+                        <td>Lorem ipsum</td>
+                        <td>5</td>
+                        <td>$120.6</td>
+                    </tr>
+                    <tr>
+                        <td>Textil Ahulada/GMS</td>
+                        <td>G512</td>
+                        <td>$18.50</td>
+                        <td>Lunes</td>
+                        <td>Octubre</td>
+                        <td>2020</td>
+                        <td>Lorem ipsum</td>
+                        <td>5</td>
+                        <td>$120.6</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
