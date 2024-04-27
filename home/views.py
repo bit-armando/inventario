@@ -5,7 +5,7 @@ from .models import *
 
 
 def index(request):
-    return render(request, 'Ventas.html')
+    return render(request, 'VentanaPrincipal.html')
 
 
 def add_product(request):

@@ -1,8 +1,3 @@
-@import url('Compras.css');
-@import url('Ventas.css');
-@import url('InicioSesion.css');
-@import url('VentanaPrincipal.css');
-
 *{
     box-sizing: border-box;
 }

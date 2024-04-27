@@ -2,7 +2,9 @@
 
 {% block title %}Compras{% endblock title %}
 
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static "css/Compras.css" %}">
 <section class="general">
     <div class="container">
         <div class="buscador-y-botones">
@@ -122,21 +124,3 @@
     </div>
 </section>
 {% endblock content %}
-
-{% comment %}
-            <div>
-                <p>Inventario</p>
-                <hr>
-                <img src="image.png" alt="Imagen de usuario" id="usuario-img">
-                <nav>
-                    <input type="checkbox" id="menu">
-                    <label for="menu"> ☰ </label>
-                    <ul>
-                        <li>Link 1</li>
-                        <li>Link 2</li>
-                        <li>Link 3</li>
-                        <li>Link 4</li>
-                    </ul>
-                </nav>
-            </div>
-{% endcomment %}

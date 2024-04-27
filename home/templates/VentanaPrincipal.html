@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block title %}Inventario{% endblock title %}
+{% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static "css/VentanaPrincipal.css" %}">
 <section class="general">
     <div class="container">
         <div class="buscador-y-botones">
@@ -50,13 +52,13 @@
             <div id="productos">
                 <div class="ubicacion-cat">
                     <a id="link-general" href="#">General</a>
-                    <img id="right" src="right-arrow.png" alt="conector a las categorias en la seccion de los productos">
+                    <img id="right" src="{% static "images/right-arrow.png" %}" alt="conector a las categorias en la seccion de los productos">
                     <p>Categoria 1</p>
                 </div>
                 <div class="productos-img">
                     <div class="Producto">
                         <a class="boton-info" href="#" onclick="window.modal1.showModal();">
-                            <img src="boton-de-informacion.png" alt="">
+                            <img src="{% static "images/boton-de-informacion.png" %}" alt="">
                         </a>
                         <dialog class="modal" id="modal1">
                             <div class="info-mod">
@@ -72,7 +74,7 @@
                                 <button onclick="window.modal1.close()">Cerrar</button>
                             </div>
                         </dialog>
-                        <img class="imagen" src="image.png" />
+                        <img class="imagen" src="{% static "images/image.png" %}" />
                         <div class="Texto">
                             <p class="prod-nom">Nombre</p>
                             <p class="prod-pre-ven">Precio de Venta</p>
