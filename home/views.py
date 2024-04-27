@@ -11,7 +11,7 @@ descripcion = Producto.descripcion
 
 
 def index(request):
-    return render(request, 'iniciarSesion.html')
+    return render(request, 'IniciarSesion.html')
 
 
 def add_product(request):
@@ -54,9 +54,10 @@ def registrar_entrada(request):
 
     # TODO crear un formulario para registrar una entrada
     # TODO crear return donde redireccione a la pagina principal
+    return (render(request, 'VentanaPrincipal.html'))
 
 
-def resgistar_salida(request):
+def registar_salida(request):
     productos = Producto.objects.all()
 
     if request == 'POST':

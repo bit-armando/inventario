@@ -14,15 +14,17 @@ Bloques:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
 
-    <link rel="stylesheet" href="{% static "css/base.css" %}">
+    {% comment %} <link rel="stylesheet" href="{% static "css/base.css" %}"> {% endcomment %}
 </head>
 <body>
     <header>
         <div class="container">
-            <img src="{% static "Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
-            <nav>
-                <p>Sistema de Inventario</p>
-            </nav>
+            <img src="{% static "images/Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
+            <div>
+                <p>Inventario</p>
+                <hr>
+                <img src="{% static "images/image.png" %}" alt="Imagen de usuario" id="usuario-img"> 
+            </div>
         </div>
     </header>
     {% block content %}{% endblock content %}

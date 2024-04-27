@@ -1,99 +1,79 @@
 {% extends "base.html" %}
 
+{% block title %}Proveedores{% endblock title %}
+
 {% load static %}
+{% block content %} 
+<link rel="stylesheet" href="{% static "css/Proveedores.css" %}">
+<section class="general">
+    <div class="container">
+        <div class="buscador-y-botones">
+            <a href="{% url "ventana_principal" %}">
+                <button id="inventario">Inventario</button>
+            </a>
+            <a href="{% url "ventas" %}">
+                <button id="ventas">Ventas</button>
+            </a>
+            <a href="{% url "compras" %}">
+                <button id="compras">Compras</button>
+            </a>
+            <a href="#" onclick="window.modal.showModal();">
+                <button id="registro-proveedor">Registrar nuevo proveedor</button>
+            </a>
 
-{% block content %}
-<section>
-    <header>
-        <div class="container">
-            <img src="{% static "Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
-            <div>
-                <p>Inventario</p>
-                <hr>
-                <img src="{% static "image.png" %}" alt="Imagen de usuario" id="usuario-img" style="height:50px; width:50px">
-                <nav>
-                    <input type="checkbox" id="menu">
-                    <label for="menu"> ☰ </label>
-                    <ul>
-                        <li>Link 1</li>
-                        <li>Link 2</li>
-                        <li>Link 3</li>
-                        <li>Link 4</li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </header>
-    <section class="general">
-        <div class="container">
-            <div class="buscador-y-botones">
-                <a href="VentanaPrincipal.html">
-                    <button id="inventario">Inventario</button>
-                </a>
-                <a href="Ventas.html">
-                    <button id="ventas">Ventas</button>
-                </a>
-                <a href="Compras.html">
-                    <button id="compras">Compras</button>
-                </a>
-                <a href="#" onclick="window.modal.showModal();">
-                    <button id="registro-proveedor">Registrar nuevo proveedor</button>
-                </a>
-
-                <dialog class="modal" id="modal">
-                    <form method="#" action="#">
-                        <div class="contenido">
-                            Nombre del Proveedor: <br>
-                            <input name="nombre-prov" type="text" />
-                            <br>
-                            Correo de contacto: <br>
-                            <input name="correo-prov" type="text" />
-                            <br>
-                            Numero de contacto: <br>
-                            <input name="num-prov" type="text" />
-                            <br>
-                        </div>
-                        <div class="boton-salida">
-                            <input class="boton-input" type="submit" value="Registrar contacto">
-                            <button onclick="window.modal.close()">Cerrar</button>
-                        </div>
-                    </form>
-                </dialog>
-
-                <form method="post" action="#">
-                    <input id="buscador" name="buscador" type="search" placeholder="Buscar proveedor"/>
+            <dialog class="modal" id="modal">
+                <form method="#" action="#">
+                    <div class="contenido">
+                        Nombre del Proveedor: <br>
+                        <input name="nombre-prov" type="text" />
+                        <br>
+                        Correo de contacto: <br>
+                        <input name="correo-prov" type="text" />
+                        <br>
+                        Numero de contacto: <br>
+                        <input name="num-prov" type="text" />
+                        <br>
+                    </div>
+                    <div class="boton-salida">
+                        <input class="boton-input" type="submit" value="Registrar contacto">
+                        <button onclick="window.modal.close()">Cerrar</button>
+                    </div>
                 </form>
-            </div>
+            </dialog>
 
-            <div class="tabla-ventas">
-                <table>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Productos</th>
-                        <th>Correo</th>
-                        <th>Telefono</th>
-                    </tr>
-                    <tr>
-                        <td>Esteren</td>
-                        <td>Marcos, Tintas...</td>
-                        <td>al22222@alumnos.uacj.mx</td>
-                        <td>656 123 1234</td>
-                    </tr>
-                    <tr>
-                        <td>Esteren</td>
-                        <td>Marcos, Tintas...</td>
-                        <td>al22222@alumnos.uacj.mx</td>
-                        <td>656 123 1234</td>
-                    </tr>
-                    <tr>
-                        <td>Esteren</td>
-                        <td>Marcos, Tintas...</td>
-                        <td>al22222@alumnos.uacj.mx</td>
-                        <td>656 123 1234</td>
-                    </tr>
-                </table>
-            </div>
+            <form method="post" action="#">
+                <input id="buscador" name="buscador" type="search" placeholder="Buscar proveedor"/>
+            </form>
         </div>
-    </section>
+
+        <div class="tabla-ventas">
+            <table>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Productos</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                </tr>
+                <tr>
+                    <td>Esteren</td>
+                    <td>Marcos, Tintas...</td>
+                    <td>al22222@alumnos.uacj.mx</td>
+                    <td>656 123 1234</td>
+                </tr>
+                <tr>
+                    <td>Esteren</td>
+                    <td>Marcos, Tintas...</td>
+                    <td>al22222@alumnos.uacj.mx</td>
+                    <td>656 123 1234</td>
+                </tr>
+                <tr>
+                    <td>Esteren</td>
+                    <td>Marcos, Tintas...</td>
+                    <td>al22222@alumnos.uacj.mx</td>
+                    <td>656 123 1234</td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </section>
-{% endblock %}
+{% endblock content%}
