@@ -1,6 +1,5 @@
 from django.views.generic import ListView
 from django.shortcuts import render
-from django.http import HttpResponse
 
 from .models import *
 
@@ -35,34 +34,34 @@ def add_product(request):
     return render(request, 'producto.html',
                   {'categorias': categorias,
                    'proveedores': proveedores})
-
-    # TODO crear un formulario para agregar un producto
-    # TODO crear return donde redireccione a la pagina principal
-
+    
 
 def registrar_entrada(request):
+    provedores = Proveedor.objects.all()
+    productos = Producto.objects.all()
+    
     if request == 'POST':
         provedor = request.POST['proveedor']
         producto = request.POST['producto']
         cantidad = request.POST['cantidad']
         cantidad = request.POST['cantidad']
-        # TODO guardar solo fecha
         fecha = request.POST['fecha']
         descripcion = request.POST['descripcion']
         # TODO guardar a la persona que hizo la entrada
 
         Entrada(proveedor=provedor, producto=producto,
                 cantidad=cantidad, fecha=fecha, descripcion=descripcion).save()
-
+    
     # TODO crear un formulario para registrar una entrada
     # TODO crear return donde redireccione a la pagina principal
-
-
+    
 def resgistar_salida(request):
+    productos = Producto.objects.all()
+    
     if request == 'POST':
         producto = request.POST['producto']
         cantidad = request.POST['cantidad']
-        # TODO guardar solo fecha
+        #TODO guardar solo fecha
         fecha = request.POST['fecha']
         descripcion = request.POST['descripcion']
         # TODO guardar a la persona que hizo la salida
@@ -72,8 +71,8 @@ def resgistar_salida(request):
 
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
-
-# TODO crear una vista para mostrar los productos en inventario
+    
+#TODO crear una vista para mostrar los productos en inventario
 
 
 def ventana_principal(request):
