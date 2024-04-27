@@ -199,11 +199,11 @@ input {
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-/* .Producto .imagen {
+.Producto .imagen {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
-} */
+}
 
 .boton-info {
     position: relative;
