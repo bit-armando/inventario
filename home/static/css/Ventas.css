@@ -65,10 +65,6 @@ header .logo{
     width: 50px;
 }
 
-nav{
-    margin-left: 10px;
-}
-
 header div{
     display: flex;
     justify-content: center;
@@ -77,59 +73,11 @@ header div{
     font-weight: bold;
 }
 
-ul{
-    display: none;
-    padding: 0;
-    margin: 0;
-    width: 200px;
-    position: absolute;
-}
-
-header input:checked  ~ ul{
-    display:block;
-}
-
-header input {
-    display: none;
-}
-
-header label {
-    box-sizing: border-box;
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    line-height: 30px;
-    font-weight: bold;
+header a{
+    text-decoration: none;
+    color: black;
+    margin-left: 10px;
     text-align: center;
-    user-select: none;
-}
-
-/* Estilo del boton cuando se pasa el mouse por encima*/
-header label:hover{
-    background: whitesmoke;
-}
-
-/* Estilo del boton cuando el menú está expandido*/
-header input:checked ~ label {
-    background: rgb(255, 255, 255); 
-    color: black;
-}
-
-li {
-    display: block;
-    background: rgb(0, 0, 0);
-    color: whitesmoke;
-    margin: 0;
-    padding: 10px;
-    list-style: none;
-    border-bottom: 1px solid grey;
-}
-
-/*Estilo cuando el mouse pasa encima de cada link del menu*/
-li:hover {
-    background: whitesmoke;
-    color: black;
-    cursor: pointer;
 }
 
 section{
