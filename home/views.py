@@ -4,6 +4,12 @@ from django.shortcuts import render
 from .models import *
 
 
+clave = Producto.id_producto
+precioCompra = Producto.precio_unitario
+precioVenta = Producto.precio_venta
+descripcion = Producto.descripcion
+
+
 def index(request):
     return render(request, 'VentanaPrincipal.html')
 
@@ -28,12 +34,12 @@ def add_product(request):
     return render(request, 'producto.html',
                   {'categorias': categorias,
                    'proveedores': proveedores})
-    
+
 
 def registrar_entrada(request):
     provedores = Proveedor.objects.all()
     productos = Producto.objects.all()
-    
+
     if request == 'POST':
         provedor = request.POST['proveedor']
         producto = request.POST['producto']
@@ -45,17 +51,18 @@ def registrar_entrada(request):
 
         Entrada(proveedor=provedor, producto=producto,
                 cantidad=cantidad, fecha=fecha, descripcion=descripcion).save()
-    
+
     # TODO crear un formulario para registrar una entrada
     # TODO crear return donde redireccione a la pagina principal
-    
+
+
 def resgistar_salida(request):
     productos = Producto.objects.all()
-    
+
     if request == 'POST':
         producto = request.POST['producto']
         cantidad = request.POST['cantidad']
-        #TODO guardar solo fecha
+        # TODO guardar solo fecha
         fecha = request.POST['fecha']
         descripcion = request.POST['descripcion']
         # TODO guardar a la persona que hizo la salida
@@ -65,8 +72,24 @@ def resgistar_salida(request):
 
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
-    
-#TODO crear una vista para mostrar los productos en inventario
+
+# TODO crear una vista para mostrar los productos en inventario
+
+
+def ventana_principal(request):
+    return (render(request, 'VentanaPrincipal.html'))
+
+
+def ventas(request):
+    return (render(request, 'Ventas.html'))
+
+
+def proveedores(request):
+    return (render(request, 'Proveedores.html'))
+
+
+def compras(request):
+    return (render(request, 'Compras.html'))
 
 
 # class MostrarProductos(ListView):
