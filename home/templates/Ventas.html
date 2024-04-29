@@ -3,14 +3,15 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static "css/Ventas.css" %}">
 <section>
     <header>
         <div class="container">
-            <img src="{% static "Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
+            <img src="{% static "images/Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
             <div>
                 <p>Inventario</p>
                 <hr>
-                <img src="{% static "image.png" %}" alt="Imagen de usuario" id="usuario-img" style="height:50px; width:50px">
+                <img src="{% static "images/image.png" %}" alt="Imagen de usuario" id="usuario-img" style="height:50px; width:50px">
                 <nav>
                     <input type="checkbox" id="menu">
                     <label for="menu"> ☰ </label>
@@ -28,13 +29,13 @@
     <section class="general">
         <div class="container">
             <div class="buscador-y-botones">
-                <a href="VentanaPrincipal.html">
+                <a href="{% url "ventana_principal" %}">
                     <button id="inventario">Inventario</button>
                 </a>
-                <a href="Compras.html">
+                <a href="{% url "compras" %}">
                     <button id="compras">Compras</button>
                 </a>
-                <a href="Proveedores.html">
+                <a href="{% url "proveedores" %}">
                     <button id="proveedores">Proveedores</button>
                 </a>
                 <a href="#" onclick="window.modal.showModal();">

@@ -3,14 +3,15 @@
 {% load static %}
 
 {% block content %}
+<link rel="stylesheet" href="{% static "css/VentanaPrincipal.css" %}">
 <section>
     <header>
         <div class="container">
-            <img src="{% static "Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
+            <img src="{% static "images/Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
             <div>
                 <p>Inventario</p>
                 <hr>
-                <img src="{% static "image.png" %}" alt="Imagen de usuario" id="usuario-img" style="height:50px; width:50px">
+                <img src="{% static "images/image.png" %}" alt="Imagen de usuario" id="usuario-img" style="height:50px; width:50px">
                 <nav>
                     <input type="checkbox" id="menu">
                     <label for="menu"> ☰ </label>
@@ -27,16 +28,16 @@
     <section class="general">
         <div class="container">
             <div class="buscador-y-botones">
-                <a href="Compras.html">
+                <a href="{% url "compras" %}">
                     <button id="compras">Compras</button>
                 </a>
-                <a href="Ventas.html">
+                <a href="{% url "ventas" %}">
                     <button id="ventas">Ventas</button>
                 </a>
                 <a href="#">
                     <button id="editar-existencias">Editar existencias</button>
                 </a>
-                <a href="#">
+                <a href="{% url "proveedores" %}">
                     <button id="proveedores">Proveedores</button>
                 </a>
                 <form method="post" action="#">
@@ -73,7 +74,7 @@
                 <div id="productos">
                     <div class="ubicacion-cat">
                         <a id="link-general" href="#">General</a>
-                        <img id="right" src="{% static "right-arrow.png" %}" style="height: 50px; width:50px" 
+                        <img id="right" src="{% static "images/right-arrow.png" %}" style="height: 50px; width:50px" 
                              alt="Conector a las categorias en la seccion de los productos" 
                              class="imagen" style="height: 100px; width:100px"/>
                         <p>Categoria 1</p>
@@ -81,7 +82,7 @@
                     <div class="productos-img">
                         <div class="Producto">
                             <a class="boton-info" href="#" onclick="window.modal1.showModal();">
-                                <img src="{% static "boton-de-informacion.png" %}" alt="Imagen de informacion" class="imagen" style="height: 50px; width:50px"/>
+                                <img src="{% static "images/boton-de-informacion.png" %}" alt="Imagen de informacion" class="imagen" style="height: 50px; width:50px"/>
                             </a>
                             <dialog class="modal" id="modal1">
                                 <div class="info-mod">
@@ -97,7 +98,7 @@
                                     <button onclick="window.modal1.close()">Cerrar</button>
                                 </div>
                             </dialog>
-                            <img class="imagen" src="{% static "image.png" %}" class="imagen" style="height:50px; width:50px"/>
+                            <img class="imagen" src="{% static "images/image.png" %}" class="imagen" style="height:50px; width:50px"/>
                             <div class="Texto">
                                 <p class="prod-nom">Nombre</p>
                                 <p class="prod-pre-ven">Precio de Venta</p>
@@ -108,7 +109,7 @@
 
                         <div class="Producto">
                             <a class="boton-info" href="#" onclick="window.modal2.showModal();">
-                                <img src="{% static "boton-de-informacion.png" %}" alt="" class="imagen" style="height: 50px; width:50px">
+                                <img src="{% static "images/boton-de-informacion.png" %}" alt="" class="imagen" style="height: 50px; width:50px">
                             </a>
                             <dialog class="modal" id="modal2">
                                 <div class="info-mod">
@@ -124,7 +125,7 @@
                                     <button onclick="window.modal2.close()">Cerrar</button>
                                 </div>
                             </dialog>
-                            <img class="imagen" src="{% static "image.png" %}" class="imagen" style="height: 50px; width:50px"/>
+                            <img class="imagen" src="{% static "images/image.png" %}" class="imagen" style="height: 50px; width:50px"/>
                             <div class="Texto">
                                 <p class="prod-nom">Nombre</p>
                                 <p class="prod-pre-ven">Precio de Venta</p>
