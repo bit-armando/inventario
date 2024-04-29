@@ -28,7 +28,7 @@
     <section class="general">
         <div class="container">
             <div class="buscador-y-botones">
-                <a href="{% url "ventana_principal" %}">
+                <a href="{% url "index" %}">
                     <button id="inventario">Inventario</button>
                 </a>
                 <a href="{% url "ventas" %}">
@@ -42,16 +42,17 @@
                 </a>
 
                 <dialog class="modal" id="modal">
-                    <form method="#" action="#">
+                    <form method="post" action="{% url "registrar_proveedor" %}">
+                        {% csrf_token %}
                         <div class="contenido">
                             Nombre del Proveedor: <br>
-                            <input name="nombre-prov" type="text" />
+                            <input name="nombre" type="text" />
                             <br>
                             Correo de contacto: <br>
-                            <input name="correo-prov" type="text" />
+                            <input name="email" type="text" />
                             <br>
                             Numero de contacto: <br>
-                            <input name="num-prov" type="text" />
+                            <input name="telefono" type="number" max="9999999999" />
                             <br>
                         </div>
                         <div class="boton-salida">
@@ -61,7 +62,7 @@
                     </form>
                 </dialog>
 
-                <form method="post" action="#">
+                <form method="get" action="">
                     <input id="buscador" name="buscador" type="search" placeholder="Buscar proveedor"/>
                 </form>
             </div>
@@ -70,29 +71,37 @@
                 <table>
                     <tr>
                         <th>Nombre</th>
-                        <th>Productos</th>
+                        {% comment %} <th>Productos</th> {% endcomment %}
                         <th>Correo</th>
                         <th>Telefono</th>
                     </tr>
+                    {% for proveedor in proveedores %}
                     <tr>
-                        <td>Esteren</td>
-                        <td>Marcos, Tintas...</td>
-                        <td>al22222@alumnos.uacj.mx</td>
-                        <td>656 123 1234</td>
+                        <td>{{ proveedor.nombre }}</td>
+                        {% comment %} <td>{{ proveedor.productos }}</td> {% endcomment %}
+                        <td>{{ proveedor.email }}</td>
+                        <td>{{ proveedor.telefono }}</td>
                     </tr>
-                    <tr>
-                        <td>Esteren</td>
-                        <td>Marcos, Tintas...</td>
-                        <td>al22222@alumnos.uacj.mx</td>
-                        <td>656 123 1234</td>
-                    </tr>
-                    <tr>
-                        <td>Esteren</td>
-                        <td>Marcos, Tintas...</td>
-                        <td>al22222@alumnos.uacj.mx</td>
-                        <td>656 123 1234</td>
-                    </tr>
+                    {% endfor %}
                 </table>
+
+                {% if is_paginated %}
+                <div class="pagination">
+                    <span class="page-links">
+                        {% if page_obj.has_previous %}
+                            <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">←</a>
+                        {% endif %}
+              
+                        <span class="page-current">
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                        </span>
+                        
+                        {% if page_obj.has_next %}
+                            <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">→</a>
+                        {% endif %}
+                    </span>
+                </div>
+                {% endif %}
             </div>
         </div>
     </section>

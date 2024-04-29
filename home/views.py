@@ -1,5 +1,5 @@
 from django.views.generic import ListView
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from .models import *
 
@@ -54,6 +54,10 @@ def registrar_entrada(request):
 
     # TODO crear un formulario para registrar una entrada
     # TODO crear return donde redireccione a la pagina principal
+    return(render(request, 'Compras.html',{
+        'proveedores': provedores,
+        'productos': productos
+    }))
 
 
 def resgistar_salida(request):
@@ -72,25 +76,39 @@ def resgistar_salida(request):
 
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
+    return(render(request, 'Ventas.html', {
+        'productos': productos
+    }))
 
 # TODO crear una vista para mostrar los productos en inventario
-
-
-def ventana_principal(request):
-    return (render(request, 'VentanaPrincipal.html'))
-
-
-def ventas(request):
-    return (render(request, 'Ventas.html'))
-
 
 def proveedores(request):
     return (render(request, 'Proveedores.html'))
 
 
-def compras(request):
-    return (render(request, 'Compras.html'))
+class MostrarProveedores(ListView):
+    model = Proveedor
+    template_name = 'Proveedores.html'
+    context_object_name = 'proveedores'
+    paginate_by = 10
 
+    def get_queryset(self):
+        query = self.request.GET.get('buscador')
+        if query:
+            return Proveedor.objects.filter(nombre__icontains=query)
+        else:
+            return Proveedor.objects.all()    
+
+def registrar_proveedor(request):
+    if request.method == 'POST':
+        nombre = request.POST['nombre']
+        telefono = request.POST['telefono']
+        correo = request.POST['email']
+        
+        telefono = str(telefono)
+        Proveedor(nombre=nombre, telefono=telefono, email=correo).save()
+
+    return redirect('proveedores')
 
 # class MostrarProductos(ListView):
 #     model = Producto

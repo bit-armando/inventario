@@ -76,7 +76,7 @@ class Inventario(models.Model):
 
 
 class Entrada(models.Model):
-    id_entrada = models.AutoField(primary_key=True)
+    id_entrada = models.CharField(primary_key=True, max_length=10)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
