@@ -47,8 +47,9 @@
                         <div class="contenido">
                             <div id="izq">
                                 <form class="agregar" method="post" action="#">
+                                    {% csrf_token %}
                                     <label for="clave">Clave: <br></label>
-                                    <select name="id-clave" id="id-clave">
+                                    <select name="clave" id="id-clave">
                                         <option value="g512">G512</option>
                                         <option value="g513" selected>G513</option>
                                     </select>
@@ -59,14 +60,7 @@
                                         <input class="boton-input" type="submit" value="Agregar">
                                     </div>
                                 </form>
-                                Día: <br>
-                                <input name="dia" type="text" />
-                                <br>
-                                Mes: <br>
-                                <input name="mes" type="text" />
-                                <br>
-                                Año: <br>
-                                <input name="anio" type="text" />
+                                {% comment %} Tomar la fecha actual {% endcomment %}
                             </div>
                             <div id="der">
                                 <div class="recibo">
@@ -75,61 +69,6 @@
                                             <th>Producto</th>
                                             <th>Cantidad</th>
                                             <th>Precio</th>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
                                         </tr>
                                         <tr>
                                             <td>GC512</td>

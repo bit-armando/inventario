@@ -4,12 +4,6 @@ from django.shortcuts import render, redirect
 from .models import *
 
 
-clave = Producto.id_producto
-precioCompra = Producto.precio_unitario
-precioVenta = Producto.precio_venta
-descripcion = Producto.descripcion
-
-
 def index(request):
     return render(request, 'VentanaPrincipal.html')
 
@@ -19,7 +13,7 @@ def add_product(request):
     proveedores = Proveedor.objects.all()
 
     if request.method == 'POST':
-        nombre = request.POST['nombre']
+        clave = request.POST['clave']
         descripcion = request.POST['descripcion']
         precio_unitario = request.POST['precio_unitario']
         precio_venta = request.POST['precio_venta']
@@ -27,7 +21,7 @@ def add_product(request):
         proveedor = request.POST['proveedor']
         imagen = request.FILES['imagen']
 
-        Producto(nombre=nombre, descripcion=descripcion,
+        Producto(id_producto=clave, descripcion=descripcion,
                  precio_unitario=precio_unitario, precio_venta=precio_venta,
                  categoria=categoria, proveedor=proveedor, imagen=imagen).save()
 
@@ -79,11 +73,6 @@ def resgistar_salida(request):
     return(render(request, 'Ventas.html', {
         'productos': productos
     }))
-
-# TODO crear una vista para mostrar los productos en inventario
-
-def proveedores(request):
-    return (render(request, 'Proveedores.html'))
 
 
 class MostrarProveedores(ListView):
