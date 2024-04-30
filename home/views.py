@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
 
@@ -42,6 +44,7 @@ def registrar_compras(request):
     """Vista para registrar las compras en el sistema"""
     provedores = Proveedor.objects.all()
     productos = Producto.objects.all()
+    categorias = Categoria.objects.all()
 
     if request == 'POST':
         provedor = request.POST['proveedor']
@@ -59,8 +62,24 @@ def registrar_compras(request):
     # TODO crear return donde redireccione a la pagina principal
     return (render(request, 'Compras.html', {
         'proveedores': provedores,
-        'productos': productos
+        'productos': productos,
+        'categorias': categorias
     }))
+
+
+class MostrarCompras(ListView):
+    """Clase que desplegara las compras en la vista correspondiente"""
+    model = Entrada
+    template_name = 'Compras.html'
+    context_object_name = 'compras'
+    paginate_by = 20
+
+    def get_queryset(self):
+        query = self.request.GET.get('buscador')
+        if query:
+            return Entrada.objects.filter(nombre__icontains=query)
+        else:
+            return Entrada.objects.all()
 
 
 def registrar_salida(request):

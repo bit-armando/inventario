@@ -44,16 +44,16 @@
                             <br>
                             <label for="categoria">Categoría: <br></label>
                             <select name="categoria" id="categorias">
-                                <option value="textil">Textil</option>
-                                <option value="varios-seri" selected>Varios Serigrafia</option>
-                                <option value="tampo" selected>Tampografia</option>
+                                {% for categoria in categorias %}
+                                <option value={{ categoria.nombre }}>{{ categoria.nombre }}</option>
+                                {% endfor %}
                             </select>
                             <br>
                             <label for="proveedor">Proveedor: <br></label>
                             <select name="proveedor" id="proveedores">
-                                <option value="esteren">Esteren</option>
-                                <option value="z-gas" selected>Z-Gas</option>
-                                <option value="padprint" selected>PadPrint</option>
+                                {% for proveedor in proveedores %}
+                                <option value={{proveedor.nombre}}>{{ proveedor.nombre }}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <div class="boton-salida">
@@ -79,46 +79,21 @@
                         <th>Categoría</th>
                         <th>Clave</th>
                         <th>Costo unitario</th>
-                        <th>Día</th>
-                        <th>Mes</th>
-                        <th>Año</th>
+                        <th>Fecha</th>
                         <th>Descripción</th>
                         <th>Cantidad</th>
                         <th>Total</th>
                     </tr>
+                    {% for compra in compras %}
                     <tr>
-                        <td>Textil Ahulada/GMS</td>
-                        <td>G512</td>
-                        <td>$18.50</td>
-                        <td>Lunes</td>
-                        <td>Octubre</td>
-                        <td>2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>5</td>
-                        <td>$120.6</td>
+                        <td>{{ compra.categoria }}</td>
+                        <td>{{ compra.producto.id_producto }}</td>
+                        <td>{{ compra.producto.precio_unitario }}</td>
+                        <td>{{ compra.fecha }}</td>
+                        <td>{{ compra.descripcion }}</td>
+                        <td>{{ compra.cantidad }}</td>
                     </tr>
-                    <tr>
-                        <td>Textil Ahulada/GMS</td>
-                        <td>G512</td>
-                        <td>$18.50</td>
-                        <td>Lunes</td>
-                        <td>Octubre</td>
-                        <td>2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>5</td>
-                        <td>$120.6</td>
-                    </tr>
-                    <tr>
-                        <td>Textil Ahulada/GMS</td>
-                        <td>G512</td>
-                        <td>$18.50</td>
-                        <td>Lunes</td>
-                        <td>Octubre</td>
-                        <td>2020</td>
-                        <td>Lorem ipsum</td>
-                        <td>5</td>
-                        <td>$120.6</td>
-                    </tr>
+                    {% endfor %}
                 </table>
             </div>
         </div>
