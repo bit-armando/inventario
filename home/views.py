@@ -11,10 +11,12 @@ descripcion = Producto.descripcion
 
 
 def index(request):
+    """Ventana principal del sistema"""
     return render(request, 'VentanaPrincipal.html')
 
 
 def add_product(request):
+    """Vista para agregar un producto al sistema - Confirmar si se seguira usando o solo el administrador"""
     categorias = Categoria.objects.all()
     proveedores = Proveedor.objects.all()
 
@@ -36,7 +38,8 @@ def add_product(request):
                    'proveedores': proveedores})
 
 
-def registrar_entrada(request):
+def registrar_compras(request):
+    """Vista para registrar las compras en el sistema"""
     provedores = Proveedor.objects.all()
     productos = Producto.objects.all()
 
@@ -54,13 +57,14 @@ def registrar_entrada(request):
 
     # TODO crear un formulario para registrar una entrada
     # TODO crear return donde redireccione a la pagina principal
-    return(render(request, 'Compras.html',{
+    return (render(request, 'Compras.html', {
         'proveedores': provedores,
         'productos': productos
     }))
 
 
-def resgistar_salida(request):
+def registrar_salida(request):
+    """Vista para registrar las ventas en el sistema"""
     productos = Producto.objects.all()
 
     if request == 'POST':
@@ -76,17 +80,20 @@ def resgistar_salida(request):
 
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
-    return(render(request, 'Ventas.html', {
+    return (render(request, 'Ventas.html', {
         'productos': productos
     }))
 
 # TODO crear una vista para mostrar los productos en inventario
 
+
 def proveedores(request):
+    """Ventana de los proveedores del inventario"""
     return (render(request, 'Proveedores.html'))
 
 
 class MostrarProveedores(ListView):
+    """Clase que despliega la lista de proveedores del inventario"""
     model = Proveedor
     template_name = 'Proveedores.html'
     context_object_name = 'proveedores'
@@ -97,14 +104,16 @@ class MostrarProveedores(ListView):
         if query:
             return Proveedor.objects.filter(nombre__icontains=query)
         else:
-            return Proveedor.objects.all()    
+            return Proveedor.objects.all()
+
 
 def registrar_proveedor(request):
+    """Vista para registrar un proveedor al inventario"""
     if request.method == 'POST':
         nombre = request.POST['nombre']
         telefono = request.POST['telefono']
         correo = request.POST['email']
-        
+
         telefono = str(telefono)
         Proveedor(nombre=nombre, telefono=telefono, email=correo).save()
 
