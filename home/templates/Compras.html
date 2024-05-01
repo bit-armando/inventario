@@ -27,8 +27,14 @@
                             Nombre Producto: <br>
                             <input name="nombre-prod" type="text" />
                             <br>
-                            Clave: <br>
-                            <input name="clave-prod" type="text" />
+                            
+                            {% comment %} <input name="clave-prod" type="text" /> {% endcomment %}
+                            <label for="clave">Clave: <br></label>
+                            <select name="clave" id="productos">
+                                {% for producto in productos %}
+                                <option value={{producto.id_producto}}>{{ proveedor.id_producto }}</option>
+                                {% endfor %}
+                            </select>
                             <br>
                             Precio de compra: <br>
                             <input name="precio-com" type="text" />
