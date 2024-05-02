@@ -25,9 +25,9 @@ def add_product(request):
         proveedor = request.POST['proveedor']
         imagen = request.FILES['imagen']
 
-        Producto(id_producto=clave, descripcion=descripcion,
-                 precio_unitario=precio_unitario, precio_venta=precio_venta,
-                 categoria=categoria, proveedor=proveedor, imagen=imagen).save()
+        Entrada(id_entrada=clave, descripcion=descripcion,
+                precio_unitario=precio_unitario, precio_venta=precio_venta,
+                categoria=categoria, proveedor=proveedor, imagen=imagen).save()
 
     return render(request, 'producto.html',
                   {'categorias': categorias,
@@ -36,29 +36,45 @@ def add_product(request):
 
 def registrar_compras(request):
     """Vista para registrar las compras en el sistema"""
-    provedores = Proveedor.objects.all()
+    proveedores = Proveedor.objects.all()
     productos = Producto.objects.all()
     categorias = Categoria.objects.all()
+    empleados = Usuario.objects.all()
 
-    if request == 'POST':
-        provedor = request.POST['proveedor']
-        producto = request.POST['producto']
-        cantidad = request.POST['cantidad']
-        cantidad = request.POST['cantidad']
-        fecha = request.POST['fecha']
-        descripcion = request.POST['descripcion']
-        # TODO guardar a la persona que hizo la entrada
+    if request.method == 'POST':
+        id_proveedor = request.POST.get('proveedor')
+        id_producto = request.POST.get('producto')
+        cantidad = request.POST.get('cantidad')
+        precio_unitario = request.POST.get('precio_unitario')
+        precio_venta = request.POST.get('precio_venta')
+        fecha = request.POST.get('fecha')
+        descripcion = request.POST.get('descripcion')
 
-        Entrada(proveedor=provedor, producto=producto,
-                cantidad=cantidad, fecha=fecha, descripcion=descripcion).save()
+        proveedor = Proveedor.objects.get(pk=id_proveedor)
+        producto = Producto.objects.get(pk=id_producto)
 
-    # TODO crear un formulario para registrar una entrada
-    # TODO crear return donde redireccione a la pagina principal
-    return (render(request, 'Compras.html', {
-        'proveedores': provedores,
+        # Actualizar el precio unitario y de venta del producto si es necesario
+        if precio_unitario:
+            producto.precio_unitario = precio_unitario
+        if precio_venta:
+            producto.precio_venta = precio_venta
+        producto.save()
+
+        nueva_entrada = Entrada(
+            proveedor=proveedor,
+            producto=producto,
+            cantidad=cantidad,
+            fecha=fecha,
+            descripcion=descripcion,
+        )
+        nueva_entrada.save()
+
+    return render(request, 'Compras.html', {
+        'proveedores': proveedores,
         'productos': productos,
-        'categorias': categorias
-    }))
+        'categorias': categorias,
+        'empleados': empleados
+    })
 
 
 class MostrarCompras(ListView):
