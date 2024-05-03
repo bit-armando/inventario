@@ -61,10 +61,16 @@ class Producto(models.Model):
     proveedor = models.ForeignKey(
         Proveedor, on_delete=models.CASCADE, default='')
     imagen = models.ImageField(
-        upload_to='productos/', default='productos/default.jpg')
+        upload_to='productos/', default='productos/default.png')
 
     def __str__(self):
-        return self.producto
+        return self.id_producto
+
+    def save(self, *args, **kwargs):
+        if self.imagen:
+            filename = f"{self.id_producto}.{self.imagen.name.split('.')[-1]}"
+            self.imagen.name = filename
+        super().save(*args, **kwargs)
 
 
 class Inventario(models.Model):
@@ -72,7 +78,7 @@ class Inventario(models.Model):
     cantidad = models.IntegerField()
 
     def __str__(self):
-        return self.producto.descripcion
+        return self.producto.id_producto
 
 
 class Entrada(models.Model):

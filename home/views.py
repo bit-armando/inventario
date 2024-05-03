@@ -111,3 +111,23 @@ class MostrarProductos(ListView):
 
     def get_queryset(self):
         return Inventario.objects.all()
+    
+    def calcular_total(self):
+        total = 0
+        for producto in Inventario.objects.all():
+            total += producto.producto.precio_venta * producto.cantidad
+        return total
+    
+    def calcular_total_producto(self, producto):
+        inventario = Inventario.objects.get(producto=producto)
+        total_producto = inventario.producto.precio_venta * inventario.cantidad
+        return total_producto
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all()
+        context['total'] = self.calcular_total()
+        
+        for producto in context['inventario']:
+            producto.total = self.calcular_total_producto(producto.producto)
+        return context
