@@ -142,15 +142,19 @@ def registrar_proveedor(request):
         correo = request.POST['email']
 
         telefono = str(telefono)
-        Proveedor(nombre=nombre, telefono=telefono, email=correo).save()
+        
+        if (nombre == '' or telefono == '' or correo == ''):
+            return redirect('proveedores')
+        else:
+            Proveedor(nombre=nombre, telefono=telefono, email=correo).save()
 
     return redirect('proveedores')
 
-# class MostrarProductos(ListView):
-#     model = Producto
-#     # template_name = 'home/productos.html'
-#     context_object_name = 'productos'
-#     paginate_by = 10
+class MostrarProductos(ListView):
+    model = Inventario
+    template_name = 'VentanaPrincipal.html'
+    context_object_name = 'inventario'
+    paginate_by = 10
 
-#     def get_queryset(self):
-#         return Producto.objects.all()
+    def get_queryset(self):
+        return Inventario.objects.all()
