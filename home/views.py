@@ -39,7 +39,6 @@ def registrar_compras(request):
     proveedores = Proveedor.objects.all()
     productos = Producto.objects.all()
     categorias = Categoria.objects.all()
-    empleados = Usuario.objects.all()
 
     if request.method == 'POST':
         id_proveedor = request.POST.get('proveedor')
@@ -73,7 +72,6 @@ def registrar_compras(request):
         'proveedores': proveedores,
         'productos': productos,
         'categorias': categorias,
-        'empleados': empleados
     })
 
 
@@ -81,7 +79,7 @@ class MostrarCompras(ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
     model = Entrada
     template_name = 'Compras.html'
-    context_object_name = 'compras'
+    context_object_name = 'entradas'
     paginate_by = 20
 
     def get_queryset(self):
