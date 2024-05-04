@@ -2,6 +2,7 @@ from typing import Any
 from django.db.models.query import QuerySet
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
+from django.db.models import Q
 
 from .models import *
 
@@ -72,11 +73,16 @@ class MostrarCompras(ListView):
     paginate_by = 10
 
     def get_queryset(self):
-        # query = self.request.GET.get('buscador')
-        # if query:
-        #     return Producto.objects.filter(nombre__icontains=query)
-        # else:
-        return Inventario.objects.all()
+        query = self.request.GET.get('buscador')
+        if query:
+            return Inventario.objects.filter(
+                # Buscar en el nombre del producto
+                Q(producto__producto__icontains=query) |
+                # Buscar en la descripción del producto
+                Q(producto__descripcion__icontains=query)
+            )
+        else:
+            return Inventario.objects.all()
 
     def calcular_total(self):
         """Calcular el total de las compras"""

@@ -60,6 +60,7 @@
             <div class="tabla-compras">
                 <table>
                     <tr>
+                        <th>Producto</th>
                         <th>Categoría</th>
                         <th>Clave</th>
                         <th>Costo unitario</th>
@@ -70,6 +71,7 @@
                     </tr>
                     {% for producto in inventario %}
                     <tr>
+                        <td>{{ producto.producto.producto }}</td>
                         <td>{{ producto.producto.categoria }}</td>
                         <td>{{ producto.producto.id_producto }}</td>
                         <td>${{ producto.producto.precio_unitario }}</td>
