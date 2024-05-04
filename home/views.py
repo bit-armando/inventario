@@ -34,60 +34,66 @@ def add_product(request):
                    'proveedores': proveedores})
 
 
+def compras(request):
+    """Ventana de compras"""
+    return (render(request, "Compras.html"))
+
+
 def registrar_compras(request):
     """Vista para registrar las compras en el sistema"""
-    proveedores = Proveedor.objects.all()
-    productos = Producto.objects.all()
-    categorias = Categoria.objects.all()
-
     if request.method == 'POST':
-        id_proveedor = request.POST.get('proveedor')
-        id_producto = request.POST.get('producto')
-        cantidad = request.POST.get('cantidad')
-        precio_unitario = request.POST.get('precio_unitario')
-        precio_venta = request.POST.get('precio_venta')
-        fecha = request.POST.get('fecha')
-        descripcion = request.POST.get('descripcion')
+        clave = request.POST['clave']
+        cantidad = request.POST['cantidad']
 
-        proveedor = Proveedor.objects.get(pk=id_proveedor)
-        producto = Producto.objects.get(pk=id_producto)
+    # En caso de que se seleccione a cerrar el formulario
+    if cantidad.strip() == '' or not cantidad.isdigit():
+        return redirect('compras')
 
-        # Actualizar el precio unitario y de venta del producto si es necesario
-        if precio_unitario:
-            producto.precio_unitario = precio_unitario
-        if precio_venta:
-            producto.precio_venta = precio_venta
-        producto.save()
+    try:
+        producto = Producto.objects.get(id_producto=clave)
+    except Producto.DoesNotExist:
+        return redirect('compras')
 
-        nueva_entrada = Entrada(
-            proveedor=proveedor,
-            producto=producto,
-            cantidad=cantidad,
-            fecha=fecha,
-            descripcion=descripcion,
-        )
-        nueva_entrada.save()
+    try:
+        inventario_existente = Inventario.objects.get(producto=producto)
+        inventario_existente.cantidad += int(cantidad)
+        inventario_existente.save()
+    except Inventario.DoesNotExist:
+        Inventario.objects.create(producto=producto, cantidad=int(cantidad))
 
-    return render(request, 'Compras.html', {
-        'proveedores': proveedores,
-        'productos': productos,
-        'categorias': categorias,
-    })
+    return redirect('compras')
 
 
 class MostrarCompras(ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
-    model = Entrada
+    model = Inventario
     template_name = 'Compras.html'
-    context_object_name = 'entradas'
-    paginate_by = 20
+    context_object_name = 'inventario'
+    paginate_by = 10
 
     def get_queryset(self):
-        query = self.request.GET.get('buscador')
-        if query:
-            return Entrada.objects.filter(nombre__icontains=query)
-        else:
-            return Entrada.objects.all()
+        # query = self.request.GET.get('buscador')
+        # if query:
+        #     return Producto.objects.filter(nombre__icontains=query)
+        # else:
+        return Inventario.objects.all()
+
+    def calcular_total(self):
+        """Calcular el total de las compras"""
+        total = 0
+        inventario = Inventario.objects.all()
+        for item in inventario:
+            total += item.producto.precio_unitario * item.cantidad
+        return total
+
+    def calcular_total_individual(self):
+        """Calcular el total individual"""
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['total_individual'] = self.calcular_total_individual()
+        context['total_precio_unitario'] = self.calcular_total()
+        return context
 
 
 def registrar_salida(request):
@@ -142,13 +148,14 @@ def registrar_proveedor(request):
         correo = request.POST['email']
 
         telefono = str(telefono)
-        
+
         if (nombre == '' or telefono == '' or correo == ''):
             return redirect('proveedores')
         else:
             Proveedor(nombre=nombre, telefono=telefono, email=correo).save()
 
     return redirect('proveedores')
+
 
 class MostrarProductos(ListView):
     model = Inventario

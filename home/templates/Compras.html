@@ -28,8 +28,8 @@
                             <!-- Clave del producto -->
                             <label for="clave">Clave: <br></label>
                             <select name="clave" id="clave">
-                                {% for producto in productos %}
-                                <option value={{producto.id_producto}}>{{ producto.id_producto }}</option>
+                                {% for producto in inventario %}
+                                <option value="{{producto.producto.id_producto}}">{{ producto.producto.id_producto }}</option>
                                 {% endfor %}
                             </select>
                             <br>
@@ -43,6 +43,7 @@
                             <input class="boton-input" type="submit" value="Generar Venta">
                             <button onclick="window.modal.close()">Cerrar</button>
                         </div>
+                        
                     </form>
                 </dialog>
 
@@ -52,7 +53,7 @@
                 <div id="inventario-total">
                     <p>Total</p>
                     <hr>
-                    <p id="total">$14,322.80</p>
+                    <p id="total">{{ total_precio_unitario }}</p>
                 </div>
             </div>
 
@@ -67,13 +68,15 @@
                         <th>Cantidad</th>
                         <th>Total</th>
                     </tr>
-                    {% for entrada in entrada %}
+                    {% for producto in inventario %}
                     <tr>
-                        <td>{{ entrada.categoria }}</td>
-                        <td>{{ entrada.id_entrada }}</td>
-                        <td>{{ entrada.descripcion }}</td>
-                        <td>{{ entrada.cantidad }}</td>
-                        <td>{{ entrada.cantidad }}</td>
+                        <td>{{ producto.producto.categoria }}</td>
+                        <td>{{ producto.producto.id_producto }}</td>
+                        <td>{{ producto.producto.precio_unitario }}</td>
+                        <td>Fecha</td>
+                        <td>{{ producto.producto.descripcion }}</td>
+                        <td>{{ producto.cantidad }}</td>
+                        <td>{{ total_individual }}</td>
                     </tr>
                     {% endfor %}
                 </table>
