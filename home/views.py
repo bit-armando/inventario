@@ -86,13 +86,17 @@ class MostrarCompras(ListView):
             total += item.producto.precio_unitario * item.cantidad
         return total
 
-    def calcular_total_individual(self):
-        """Calcular el total individual"""
+    def calcular_total_individual(self, producto):
+        inventario = Inventario.objects.get(producto=producto)
+        total_individual = inventario.producto.precio_unitario * inventario.cantidad
+        return total_individual
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['total_individual'] = self.calcular_total_individual()
         context['total_precio_unitario'] = self.calcular_total()
+
+        for producto in context['inventario']:
+            producto.total = self.calcular_total_individual(producto.producto)
         return context
 
 

@@ -53,7 +53,7 @@
                 <div id="inventario-total">
                     <p>Total</p>
                     <hr>
-                    <p id="total">{{ total_precio_unitario }}</p>
+                    <p id="total">${{ total_precio_unitario }}</p>
                 </div>
             </div>
 
@@ -72,11 +72,11 @@
                     <tr>
                         <td>{{ producto.producto.categoria }}</td>
                         <td>{{ producto.producto.id_producto }}</td>
-                        <td>{{ producto.producto.precio_unitario }}</td>
+                        <td>${{ producto.producto.precio_unitario }}</td>
                         <td>Fecha</td>
                         <td>{{ producto.producto.descripcion }}</td>
                         <td>{{ producto.cantidad }}</td>
-                        <td>{{ total_individual }}</td>
+                        <td>${{ producto.total }}</td>
                     </tr>
                     {% endfor %}
                 </table>
