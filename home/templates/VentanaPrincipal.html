@@ -2,124 +2,84 @@
 
 {% load static %}
 
-{% block content %}
-<link rel="stylesheet" href="{% static "css/VentanaPrincipal.css" %}">
-<section>
-    <section class="general">
-        <div class="container">
-            <div class="buscador-y-botones">
-                <a href="{% url "compras" %}">
-                    <button id="compras">Compras</button>
-                </a>
-                <a href="{% url "ventas" %}">
-                    <button id="ventas">Ventas</button>
-                </a>
-                <a href="#">
-                    <button id="editar-existencias">Editar existencias</button>
-                </a>
-                <a href="{% url "proveedores" %}">
-                    <button id="proveedores">Proveedores</button>
-                </a>
-                <form method="post" action="#">
-                    <input id="buscador" name="buscador" type="text" placeholder="Buscar producto"/>
-                </form>
-                <div id="inventario-total">
-                    <p>Total Inventario</p>
-                    <hr>
-                    <p id="total">$$$</p>
-                </div>
-            </div>
-
-            <div class="categorias-y-productos">
-                <div id="categorias-lista">
-                    <form id="categorias-check" method="get" action="#">
-                        <div class="filtro">
-                            <p id="titulo-categorias">Categorias</p>
-                            <input id="boton-filtro" type="submit" value="Aplicar filtros">
-                        </div>
-                        <div class="cat">
-                            <p class="categoria-ind">Categoria 1</p>
-                            <input name="categoria1" type="checkbox" />
-                        </div>
-                        <div class="cat">
-                            <p class="categoria-ind">Categoria 2</p>
-                            <input name="categoria2" type="checkbox" />
-                        </div>
-                        <div class="cat">
-                            <p class="categoria-ind">Categoria 3</p>
-                            <input name="categoria3" type="checkbox" />
-                        </div>
+    {% block content %}
+    <link rel="stylesheet" href="{% static "css/VentanaPrincipal.css" %}">
+    <section>
+        <section class="general">
+            <div class="container">
+                <div class="buscador-y-botones">
+                    <a href="{% url "compras" %}">
+                        <button id="compras">Compras</button>
+                    </a>
+                    <a href="{% url "ventas" %}">
+                        <button id="ventas">Ventas</button>
+                    </a>
+                    <a href="#">
+                        <button id="editar-existencias">Editar existencias</button>
+                    </a>
+                    <a href="{% url "proveedores" %}">
+                        <button id="proveedores">Proveedores</button>
+                    </a>
+                    <form method="post" action="#">
+                        <input id="buscador" name="buscador" type="text" placeholder="Buscar producto"/>
                     </form>
-                </div>
-                <div id="productos">
-                    {% comment %} Muestra filtro {% endcomment %}
-                    <div class="ubicacion-cat">
-                        <a id="link-general" href="#">General</a>
-                        <img id="right" src="{% static "images/right-arrow.png" %}" style="height: 50px; width:50px" 
-                            alt="Conector a las categorias en la seccion de los productos" 
-                            class="imagen" style="height: 100px; width:100px"/>
-                        <p>Categoria 1</p>
+                    <div id="inventario-total">
+                        <p>Total Inventario</p>
+                        <hr>
+                        <p id="total">${{total}}</p>
                     </div>
-                    <div class="productos-img">
-                        {% comment %} Producto {% endcomment %}
-                        {% for producto in inventario %}
-                        <div class="Producto">
-                            <a class="boton-info" href="#" onclick="window.modal1.showModal();">
-                                <img src="{% static "images/boton-de-informacion.png" %}" alt="Imagen de informacion" class="imagen" style="height: 50px; width: 50px;"/>
-                            </a>
-                            <dialog class="modal" id="modal1">
-                                <div class="info-mod">
-                                    <h2>Nombre</h2>
-                                    <p>Clave: </p>
-                                    <p>Precio de compra: </p>
-                                    <p>Precio sin IVA: </p>
-                                    <p>Descripcion: </p>
-                                    <div class="compras-ventas">
-                                        <p>Compras:</p>
-                                        <p>Ventas:</p>
-                                    </div>
-                                    <button onclick="window.modal1.close()">Cerrar</button>
-                                </div>
-                            </dialog>
-                            <img class="imagen" src="{% static "images/image.png" %}" alt="" style="height: 50px; width: 50px;"/>
-                            <div class="Texto">
-                                <p class="prod-nom">{{producto.producto.producto}}</p>
-                                <p class="prod-pre-ven">{{producto.producto.precio_venta}}</p>
-                                <p class="prod-stock">{{producto.cantidad}}</p>
-                                <p class="prod-val-inv">Precio inventario</p>
+                </div>
+
+                <div class="categorias-y-productos">
+                    <div id="categorias-lista">
+                        <form id="categorias-check" method="get" action="#">
+
+                            {% for categoria in categorias %}
+                            <div class="cat">
+                                <p id="link-general" href="#">{{categoria.nombre}}</p>
                             </div>
+                            {% endfor %}
+                            
+                        </form>
+                    </div>
+                    <div id="productos">
+                        {% comment %} Muestra filtro {% endcomment %}
+                        <div class="ubicacion-cat">
+                            <h3>test</h3>
                         </div>
-                        {% endfor %}
-                        {% comment %} <div class="Producto">
-                            <a class="boton-info" href="#" onclick="window.modal1.showModal();">
-                                <img src="{% static "images/boton-de-informacion.png" %}" alt="Imagen de informacion" class="imagen" style="height: 50px; width:50px"/>
-                            </a>
-                            <dialog class="modal" id="modal1">
-                                <div class="info-mod">
-                                    <h2>Nombre producto</h2>
-                                    <p>Clave: {{clave}}</p>
-                                    <p>Precio de compra: {{precioCompra}}</p>
-                                    <p>Precio sin IVA: {{precioVenta}}</p>
-                                    <p>Descripcion: {{descripcion}}</p>
-                                    <div class="compras-ventas">
-                                        <p>Compras:</p>
-                                        <p>Ventas:</p>
+                        <div class="productos-img">
+                            {% comment %} Producto {% endcomment %}
+                            {% for producto in inventario %}
+                            <div class="Producto">
+                                <a class="boton-info" href="#" onclick="window.{{producto.producto}}.showModal();">
+                                    <img src="{% static "images/boton-de-informacion.png" %}" alt="" class="imagen" style="height: 30px; width: 30px;"/>
+                                </a>
+                                <dialog class="modal" id={{producto.producto}}>
+                                    <div class="info-mod">
+                                        <h2>{{producto.producto}}</h2>
+                                        <p>Precio de compra: {{producto.producto.precio_unitario}}</p>
+                                        <p>Precio de venta: {{producto.producto.precio_venta}}</p>
+                                        <p>Descripcion: {{producto.producto.descripcion}}</p>
+                                        <div class="compras-ventas">
+                                            <p>Compras:</p>
+                                            <p>Ventas:</p>
+                                        </div>
+                                        <button onclick="window.{{producto.producto}}.close()">Cerrar</button>
                                     </div>
-                                    <button onclick="window.modal1.close()">Cerrar</button>
+                                </dialog>
+                                <img class="imagen" src="/media-files/{{producto.producto.imagen}}"  style="height: 80px; width: 80px;"/>
+                                <div class="Texto">
+                                    <span><p class="prod-nom">{{producto.producto.id_producto}}</p></span>
+                                    <p class="prod-pre-ven">{{producto.producto.precio_venta}}</p>
+                                    <p class="prod-stock">{{producto.cantidad}}</p>
+                                    <p class="prod-val-inv">{{producto.total}}</p>
                                 </div>
-                            </dialog>
-                            <img class="imagen" src="{% static "images/image.png" %}" class="imagen" style="height:50px; width:50px"/>
-                            <div class="Texto">
-                                <p class="prod-nom">Nombre</p>
-                                <p class="prod-pre-ven">Precio de Venta</p>
-                                <p class="prod-stock">Stock</p>
-                                <p class="prod-val-inv">Valor Inventario</p>
                             </div>
-                        </div> {% endcomment %}
+                            {% endfor %}
+l                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     </section>
-</section>
-{% endblock %}
+    {% endblock %}
