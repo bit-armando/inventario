@@ -37,7 +37,7 @@ def add_product(request):
 
 def compras(request):
     """Ventana de compras"""
-    return (render(request, "compras_nuevo.html"))
+    return (render(request, "compras.html"))
 
 
 def registrar_compras(request):
@@ -68,7 +68,7 @@ def registrar_compras(request):
 class MostrarCompras(ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
     model = Inventario
-    template_name = 'compras_nuevo.html'
+    template_name = 'compras.html'
     context_object_name = 'inventario'
     paginate_by = 10
 
@@ -108,7 +108,7 @@ class MostrarCompras(ListView):
 
 def ventas(request):
     """Vista para mostrar las ventas"""
-    return (render(request, "ventas-nuevo.html"))
+    return (render(request, "ventas.html"))
 
 
 def registrar_salida(request):
@@ -128,7 +128,7 @@ def registrar_salida(request):
 
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
-    return (render(request, 'ventas-nuevo.html', {
+    return (render(request, 'ventas.html', {
         'productos': productos
     }))
 
@@ -137,13 +137,13 @@ def registrar_salida(request):
 
 def proveedores(request):
     """Ventana de los proveedores del inventario"""
-    return (render(request, 'proveedores-nuevo.html'))
+    return (render(request, 'proveedores.html'))
 
 
 class MostrarProveedores(ListView):
     """Clase que despliega la lista de proveedores del inventario"""
     model = Proveedor
-    template_name = 'proveedores-nuevo.html'
+    template_name = 'proveedores.html'
     context_object_name = 'proveedores'
     paginate_by = 10
 

@@ -3,122 +3,156 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static "css/Ventas.css" %}">
-<section>
-    <section class="general">
-        <div class="container">
-            <div class="buscador-y-botones">
-                <a href="{% url "index" %}">
-                    <button id="inventario">Inventario</button>
-                </a>
-                <a href="{% url "compras" %}">
-                    <button id="compras">Compras</button>
-                </a>
-                <a href="{% url "proveedores" %}">
-                    <button id="proveedores">Proveedores</button>
-                </a>
-                <a href="#" onclick="window.modal.showModal();">
-                    <button id="registro-venta">Registrar Venta</button>
-                </a>
-                
-                <dialog class="modal" id="modal">
-                    <form method="post" action="#">
-                        <div class="contenido">
-                            <div id="izq">
-                                <form class="agregar" method="post" action="#">
-                                    {% csrf_token %}
-                                    <label for="clave">Clave: <br></label>
-                                    <select name="clave" id="id-clave">
-                                        <option value="g512">G512</option>
-                                        <option value="g513" selected>G513</option>
-                                    </select>
-                                    <br>
-                                    Cantidad: <br>
-                                    <input name="cantidad" type="text" />
-                                    <div>
-                                        <input class="boton-input" type="submit" value="Agregar">
-                                    </div>
-                                </form>
-                                {% comment %} Tomar la fecha actual {% endcomment %}
-                            </div>
-                            <div id="der">
-                                <div class="recibo">
-                                    <table>
-                                        <tr>
-                                            <th>Producto</th>
-                                            <th>Cantidad</th>
-                                            <th>Precio</th>
-                                        </tr>
-                                        <tr>
-                                            <td>GC512</td>
-                                            <td>5</td>
-                                            <td>$120.6</td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <p id="titulo-total">Total a pagar:</p>
-                                <div class="pago">
-                                    <div id="subtotal">
-                                        <p>Subtotal:</p>
-                                        <p>$1,432.50</p>
-                                    </div>
-                                    <hr>
-                                    <div id="total">
-                                        <p>Total:</p>
-                                        <p>$1,689.50</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="boton-salida">
-                            <input class="boton-input" type="submit" value="Generar Venta">
-                            <button onclick="window.modal.close()">Cerrar</button>
-                        </div>
-                    </form>
-                </dialog>
+<link rel="stylesheet" href="{% static "css/ventas.css" %}">
+<body>
+    <section class="navegacion">
+        <div class="container-body">
+            <a href="{% url "compras" %}">
+                <button>Compras</button>
+            </a>
+            <a href="{% url "proveedores" %}">
+                <button>Proveedores</button>
+            </a>
+            <a href="{% url "index" %}">
+                <button>Inventario</button>
+            </a>
+        </div>
+    </section>
 
-                <form method="post" action="#">
-                    <input id="buscador" name="buscador" type="search" placeholder="Buscar venta"/>
+    <section class="info-busqueda">
+        <div class="container-body">
+            <div class="izq">
+                <form action="#" method="get">
+                    <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
+                    <input id="buscar" type="image" src="{% static "images/search.png" %}">
                 </form>
-                <div id="ventas-total">
-                    <p>Total Ventas</p>
-                    <hr>
-                    <p id="total">$14,322.80</p>
-                </div>
-                <div id="utilidades-total">
-                    <p>Total Utilidades</p>
-                    <hr>
-                    <p id="total">$14,322.80</p>
-                </div>
+                <button onclick="window.modal.showModal()">Registrar Venta</button>
             </div>
-
-            <div class="tabla-ventas">
-                <table>
-                    <tr>
-                        <th>Categoría</th>
-                        <th>Clave</th>
-                        <th>Costo unitario</th>
-                        <th>fecha</th>
-                        <th>Descripción</th>
-                        <th>Utilidad</th>
-                        <th>Precio de venta</th>
-                        <th>Cantidad</th>
-                        <th>Total Venta</th>
-                    </tr>
-                    <tr>
-                        <td>Textil Ahulada/GMS</td>
-                        <td>G512</td>
-                        <td>$18.50</td>
-                        <td>Lunes</td>
-                        <td>Lorem ipsum</td>
-                        <td>$20.6</td>
-                        <td>$20.6</td>
-                        <td>5</td>
-                        <td>$120.6</td>
-                    </tr>
-                </table>
+            <div class="totales">
+                <div class="der">
+                    <p id="total">Total inventario</p>
+                    <p id="total-cant">{$15,999.90}</p>
+                </div>
+                <div class="der">
+                    <p id="total-uti">Total Utilidades</p>
+                    <p id="total-uti-cant">{$15,999.90}</p>
+                </div>
             </div>
         </div>
     </section>
-</section>
+
+    <dialog class="modal" id="modal">
+        <form method="post" action="#">
+            <div class="contenido">
+                <div id="izq">
+                    <form class="agregar" method="post" action="#">
+                        <label for="editar">Categoria: <br></label>
+                        <select name="categoria-form" id="categoria-form">
+                            <option value="Tampografia">Tampo</option>
+                            <option value="Serigrafia">Seri</option>
+                        </select>
+                        <br>
+                        <label for="editar">Nombre {Descripcion}: <br></label>
+                        <select name="descripcion-form" id="descripcion-form">
+                            <option value="Textil ahulada azul">Textil ahulada azul</option>
+                            <option value="Vinil roja">Vinil roja</option>
+                        </select>
+                        <div>
+                            <input class="boton-input" type="submit" value="Agregar">
+                        </div>
+                    </form>
+                </div>
+                <div id="der">
+                    <div class="recibo">
+                        <table>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Cantidad</th>
+                                <th>Precio</th>
+                            </tr>
+                            <tr>
+                                <td>Tinta Azul</td>
+                                <td>5</td>
+                                <td>$120.6</td>
+                            </tr>
+                            <tr>
+                                <td>Tinta roja</td>
+                                <td>5</td>
+                                <td>$120.6</td>
+                            </tr>
+                            <tr>
+                                <td>Tinta verde</td>
+                                <td>5</td>
+                                <td>$120.6</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <p id="titulo-total">Total a pagar:</p>
+                        <div id="subtotal-mod">
+                            <p>Subtotal:</p>
+                            <p>$1,432.50</p>
+                        </div>
+                        <div id="total-mod">
+                            <p>Total:</p>
+                            <p>$1,689.50</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="boton-salida">
+                <input class="boton-input" type="submit" value="Generar Venta">
+                <button onclick="window.modal.close()">Cerrar</button>
+            </div>
+        </form>
+    </dialog>
+
+    <section class="tabla">
+            <table>
+                <tr>
+                    <th>Categoría</th>
+                    <th>Clave</th>
+                    <th>Costo unitario</th>
+                    <th>Fecha</th>
+                    <th>Descripción</th>
+                    <th>Utilidad</th>
+                    <th>Precio de venta</th>
+                    <th>Cantidad</th>
+                    <th>Total Venta</th>
+                </tr>
+                <tr>
+                    <td>Textil Ahulada/GMS</td>
+                    <td>G512</td>
+                    <td>$18.50</td>
+                    <td>10/10/10</td>
+                    <td>Lorem ipsum</td>
+                    <td>$20.6</td>
+                    <td>$20.6</td>
+                    <td>5</td>
+                    <td>$120.6</td>
+                </tr>
+                <tr>
+                    <td>Textil Ahulada/GMS</td>
+                    <td>G512</td>
+                    <td>$18.50</td>
+                    <td>10/10/10</td>
+                    <td>Lorem ipsum</td>
+                    <td>$20.6</td>
+                    <td>$20.6</td>
+                    <td>5</td>
+                    <td>$120.6</td>
+                </tr>
+                <tr>
+                    <td>Textil Ahulada/GMS</td>
+                    <td>G512</td>
+                    <td>$18.50</td>
+                    <td>10/10/10</td>
+                    <td>Lorem ipsum</td>
+                    <td>$20.6</td>
+                    <td>$20.6</td>
+                    <td>5</td>
+                    <td>$120.6</td>
+                </tr>
+            </table>
+    </section>
+</body>
 {% endblock %}
