@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventario</title>
+
+    <link rel="stylesheet" href="inventario.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="Logo autorizado GC.png" alt="Logo de la empresa">
+                <h2>Distribuidora</h2>
+            </div>
+            <h1>Inventario</h1>
+            <div class="cuenta">
+                <img src="user.png" alt="#">
+                <div class="user">
+                    <p id="nombre">
+                        {Name Last Name}
+                    </p>
+                    <a href="#">
+                        <button id="cerrar-sesion">Cerrar Sesión</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="navegacion">
+        <div class="container-body">
+            <a href="ventas.html">
+                <button>Ventas</button>
+            </a>
+            <a href="proveedores.html">
+                <button>Proveedores</button>
+            </a>
+            <a href="compras.html">
+                <button>Compras</button>
+            </a>
+        </div>
+    </section>
+    <section class="info-busqueda">
+        <div class="container-body">
+            <div class="izq">
+                <form action="#" method="post">
+                    <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
+                    <input id="buscar" type="image" src="search.png">
+                </form>
+                <button onclick="window.modal.showModal()">Editar existencias</button>
+            </div>
+            
+            <div class="der">
+                <p id="total">Total inventario</p>
+                <p id="total-cant">{$15,999.90}</p>
+            </div>
+        </div>
+    </section>
+
+    <dialog class="modal" id="modal">
+        <div class="info-mod">
+            <h2>Editar existencias</h2>
+            <form action="#" method="post" class="editar">
+                <label for="editar">Categoria: <br></label>
+                <select name="categoria-form" id="categoria-form">
+                    <option value="Tampografia">Tampo</option>
+                    <option value="Serigrafia">Seri</option>
+                </select>
+                <br>
+                <label for="editar">Nombre {Descripcion}: <br></label>
+                <select name="descripcion-form" id="descripcion-form">
+                    <option value="Textil ahulada azul">Textil ahulada azul</option>
+                    <option value="Vinil roja">Vinil roja</option>
+                </select>
+                <br>
+                <label for="cant-nueva">Nueva Cantidad: <br></label>
+                <input type="text" id="cant-nueva">
+                <div class="actualizar">
+                    <input type="submit" value="Actualizar">
+                </div>
+            </form>
+            <button onclick="window.modal.close()">Cerrar</button>
+        </div>
+    </dialog>
+
+    <section class="inventario-prin">
+        <div class="categoria">
+            <div class="cat-check">
+                <p id="titulo-cat">Categorias</p>
+                <form action="#" method="post">
+                    <div class="cat">
+                        <p class="nombre-cat">Categoria 1</p>
+                        <input type="checkbox">
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="inv">
+            <div class="productos-img">
+                <div class="Producto">
+                    <a class="boton-info" href="#" onclick="window.modal1.showModal();">
+                        <img src="boton-de-informacion.png" alt="">
+                    </a>
+                    
+                    <img class="imagen" src="image.png" />
+                    <div class="Texto">
+                        <p class="prod-nom">Nombre</p>
+                        <p class="prod-pre-ven">Precio de Venta</p>
+                        <p class="prod-stock">Stock</p>
+                    </div>
+                </div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+                <div class="Producto"></div>
+            </div>
+        </div>
+    </section>
+
+    <dialog class="modal" id="modal1">
+        <div class="info-mod">
+            <h2>Nombre producto</h2>
+            <p>Clave:</p>
+            <p>Precio de compra:</p>
+            <p>Inventario total:</p>
+            <p>Proveedor:</p>
+            <button onclick="window.modal1.close()">Cerrar</button>
+        </div>
+    </dialog>
+
+</body>
+</html>

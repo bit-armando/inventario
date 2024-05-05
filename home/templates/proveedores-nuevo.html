@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proveedores</title>
+
+    <link rel="stylesheet" href="proveedores.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <img src="Logo autorizado GC.png" alt="Logo de la empresa">
+                <h2>Distribuidora</h2>
+            </div>
+            <h1>Proveedores</h1>
+            <div class="cuenta">
+                <img src="user.png" alt="#">
+                <div class="user">
+                    <p id="nombre">
+                        {Name Last Name}
+                    </p>
+                    <a href="#">
+                        <button id="cerrar-sesion">Cerrar Sesión</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section class="navegacion">
+        <div class="container-body">
+            <a href="compras.html">
+                <button>Compras</button>
+            </a>
+            <a href="ventas.html">
+                <button>Ventas</button>
+            </a>
+            <a href="inventario-principal.html">
+                <button>Inventario</button>
+            </a>
+        </div>
+    </section>
+
+    <section class="info-busqueda">
+        <div class="container-body">
+            <div class="izq">
+                <form action="#" method="post">
+                    <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
+                    <input id="buscar" type="image" src="search.png">
+                </form>
+            </div>
+            <div class="totales">
+                <button onclick="window.modal.showModal()">Registrar Proveedor</button>
+                <button onclick="window.modal2.showModal()">Editar Informacion Proveedor</button>
+            </div>
+        </div>
+    </section>
+
+    <dialog class="modal" id="modal">
+        <div class="info-mod">
+            <h2>Registrar Proveedor</h2>
+            <form action="#" method="post" class="editar">
+                <label for="editar">Nombre: <br></label>
+                <input type="text" name="nombre" id="nombre-prov">
+                <br>
+                <label for="editar">Telefono: <br></label>
+                <input type="text" name="tel" id="tel">
+                <br>
+                <label for="editar">Correo: <br></label>
+                <input type="text" name="correo" id="correo">
+                <div class="actualizar">
+                    <input type="submit" value="Registrar Proveedor">
+                </div>
+            </form>
+            <button onclick="window.modal.close()">Cerrar</button>
+        </div>
+    </dialog>
+
+    <dialog class="modal" id="modal2">
+        <div class="info-mod">
+            <h2>Editar Proveedor</h2>
+            <form action="#" method="post" class="editar">
+                <label for="editar">Nombre: <br></label>
+                <select name="categoria-form" id="categoria-form">
+                    <option value="Proveedor1">Esteren</option>
+                    <option value="Proveedor2">Carls JR</option>
+                </select>
+                <br>
+                <label for="editar">Dato de columna: <br></label>
+                <select name="descripcion-form" id="descripcion-form">
+                    <option value="Nombre">Nombre</option>
+                    <option value="Telefono">Telefono</option>
+                </select>
+                <br>
+                <label for="cant-vieja">Valor anterior: <br></label>
+                <h3>{Valor anterior}</h3>
+                <br>
+                <label for="cant-nueva">Nuevo dato: <br></label>
+                <input type="text" id="cant-nueva">
+                <div class="actualizar">
+                    <input type="submit" value="Editar">
+                </div>
+            </form>
+            <button onclick="window.modal2.close()">Cerrar</button>
+        </div>
+    </dialog>
+
+    <section class="tabla">
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <th>Telefono</th>
+                <th>Correo</th>
+            </tr>
+            <tr>
+                <td>Proveedor...</td>
+                <td>656-123-1234</td>
+                <td>correo@gmail.com</td>
+            </tr>
+            <tr>
+                <td>Proveedor...</td>
+                <td>656-123-1234</td>
+                <td>correo@gmail.com</td>
+            </tr>
+            <tr>
+                <td>Proveedor...</td>
+                <td>656-123-1234</td>
+                <td>correo@gmail.com</td>
+            </tr>
+        </table>
+    </section>
+</body>
+</html>

@@ -19,12 +19,21 @@ Bloques:
 <body>
     <header>
         <div class="container">
-            <img src="{% static "images/Logo_autorizado_GC.png" %}" alt="Logo de GCDistribuidora" class="logo">
-            <div>
-                <p>Inventario</p>
-                <hr>
-                {% comment %} <img src="{% static "images/image.png" %}" alt="Imagen de usuario" id="usuario-img"> {% endcomment %}
-                {% comment %}<a class="cerrar-sesion" href="#">Cerrar <br> Sesion</a>{% endcomment %}
+            <div class="logo">
+                <img src="{% url "Logo-autorizado-GC-nuevo.png" %}" alt="Logo de la empresa">
+                <h2>Distribuidora</h2>
+            </div>
+            <h1>Compras</h1>
+            <div class="cuenta">
+                <img src="user.png" alt="#">
+                <div class="user">
+                    <p id="nombre">
+                        {Name Last Name}
+                    </p>
+                    <a href="#">
+                        <button id="cerrar-sesion">Cerrar Sesión</button>
+                    </a>
+                </div>
             </div>
         </div>
     </header>

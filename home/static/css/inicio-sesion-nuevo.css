@@ -1,0 +1,124 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    background-color: rgb(245, 242, 232);
+}
+
+h1{
+    font-size: 3em;
+    text-align: center;
+    color: white;
+}
+
+h2{
+    font-size: 2.5em;
+    text-align: center;
+}
+
+section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 90vh;
+}
+
+.container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner{
+    width: 400px;
+    height: 400px;
+    background-color: #f27506;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.form{
+    width: 400px;
+    height: 400px;
+    background-color: #e4e2e2;
+    border: solid 1px #f27506;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+input{
+    font-size: .75em;
+    width: 325px;
+    height: 50px;
+    border-radius: 16px;
+    border: solid 2px black;
+    padding: 0 15px ;
+    background-color: rgb(245, 242, 232);
+}
+
+img{
+    width: 85px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.logo{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.boton{
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.boton input:hover{
+    cursor: pointer;
+    background-color: #bb5a04;
+    border-color: #f27506;
+}
+
+.boton input{
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: #f27506;
+    border-color: #bb5a04;
+    color: white;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px mintcream inset !important;
+}
+
+:-webkit-autofill {
+    -webkit-text-fill-color: lightcoral !important;
+}
