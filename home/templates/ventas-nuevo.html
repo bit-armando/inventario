@@ -1,43 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ventas</title>
+{% extends "base.html" %}
 
-    <link rel="stylesheet" href="ventas.css">
-</head>
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static "css/ventas-nuevo.css" %}">
 <body>
-    <header>
-        <div class="container">
-            <div class="logo">
-                <img src="Logo autorizado GC.png" alt="Logo de la empresa">
-                <h2>Distribuidora</h2>
-            </div>
-            <h1>Ventas</h1>
-            <div class="cuenta">
-                <img src="user.png" alt="#">
-                <div class="user">
-                    <p id="nombre">
-                        {Name Last Name}
-                    </p>
-                    <a href="#">
-                        <button id="cerrar-sesion">Cerrar Sesión</button>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </header>
-
     <section class="navegacion">
         <div class="container-body">
-            <a href="compras.html">
+            <a href="{% url "compras" %}">
                 <button>Compras</button>
             </a>
-            <a href="proveedores.html">
+            <a href="{% url "proveedores" %}">
                 <button>Proveedores</button>
             </a>
-            <a href="inventario-principal.html">
+            <a href="{% url "index" %}">
                 <button>Inventario</button>
             </a>
         </div>
@@ -46,7 +22,7 @@
     <section class="info-busqueda">
         <div class="container-body">
             <div class="izq">
-                <form action="#" method="post">
+                <form action="#" method="get">
                     <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
                     <input id="buscar" type="image" src="search.png">
                 </form>
@@ -179,4 +155,4 @@
             </table>
     </section>
 </body>
-</html>
+{% endblock %}

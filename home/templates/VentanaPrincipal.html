@@ -54,7 +54,7 @@
                                 <a class="boton-info" href="#" onclick="window.{{producto.producto}}.showModal();">
                                     <img src="{% static "images/boton-de-informacion.png" %}" alt="" class="imagen" style="height: 30px; width: 30px;"/>
                                 </a>
-                                <dialog class="modal" id={{producto.producto}}>
+                                <dialog class="modal" id="{{producto.producto}}">
                                     <div class="info-mod">
                                         <h2>{{producto.producto}}</h2>
                                         <p>Precio de compra: {{producto.producto.precio_unitario}}</p>

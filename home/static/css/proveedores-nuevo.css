@@ -1,39 +1,39 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 
-*{
+* {
     box-sizing: border-box;
     margin: 0;
 }
 
-html{
+html {
     scroll-behavior: smooth;
     height: 100%;
     width: 100%;
 }
 
-body{
+body {
     font-family: "Inter", sans-serif;
     background-color: whitesmoke;
     height: 100%;
     width: 100%;
 }
 
-h1{
+h1 {
     font-size: 3em;
     text-align: center;
     color: white;
 }
 
-header p{
+header p {
     font-size: 1.25em;
     font-weight: bold;
 }
 
-a{
+a {
     cursor: auto;
 }
 
-button{
+button {
     font-size: 1.25em;
     border: solid 2px #bb5a04;
     background-color: #f27506;
@@ -43,20 +43,20 @@ button{
     border-radius: 16px;
 }
 
-button:hover{
+button:hover {
     cursor: pointer;
     background-color: #bb5a04;
     border-color: #f27506;
 }
 
-header{
+header {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #f27506;
 }
 
-header .container{
+header .container {
     width: 1400px;
     display: flex;
     flex-direction: row;
@@ -66,43 +66,43 @@ header .container{
 
 }
 
-section{
+section {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
 }
 
-.logo{
+.logo {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-img{
+img {
     width: 85px;
     height: 80px;
     margin-right: 10px;
 }
 
-.cuenta{
+.cuenta {
     display: flex;
     flex-direction: row;
 }
 
-.cuenta img{
+.cuenta img {
     height: 80px;
     width: 80px;
 }
 
-.user{
+.user {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#cerrar-sesion{
+#cerrar-sesion {
     font-weight: 600;
     background: none;
     color: white;
@@ -112,7 +112,7 @@ img{
     margin-top: 15px;
 }
 
-#cerrar-sesion:hover{
+#cerrar-sesion:hover {
     color: black;
     border: solid 2px black;
     background-color: white;
@@ -120,7 +120,7 @@ img{
 
 /*Inicio navegacion*/
 
-.container-body{
+.container-body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -128,7 +128,7 @@ img{
     width: 1400px;
 }
 
-.navegacion button{
+.navegacion button {
     width: 215px;
     height: 50px;
     margin-right: 20px;
@@ -137,7 +137,7 @@ img{
 /*Final navegacion*/
 /* Inicio seccion busqueda */
 
-.info-busqueda form{
+.info-busqueda form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -146,65 +146,66 @@ img{
     height: 50px;
     border-radius: 16px;
     border: solid 2px black;
-    padding: 0 15px ;
+    padding: 0 15px;
     background-color: rgb(245, 242, 232);
     margin-right: 20px;
 }
 
-.navegacion button{
+.navegacion button {
     width: 215px;
     height: 50px;
     margin-right: 20px;
 }
 
-#buscar{
+#buscar {
     width: 25px;
     height: 25px;
 }
 
-input{
+input {
     font-size: 1em;
     border: none;
     background: none;
 }
 
-.izq{
+.izq {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.izq button{
+.izq button {
     margin-right: 20px;
 }
 
-.totales{
+.totales {
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.totales button{
+.totales button {
     margin-right: 20px;
 }
 
-.info-busqueda .container-body{
+.info-busqueda .container-body {
     justify-content: space-between;
 }
 
-.info-busqueda, .tabla-ventas{
+.info-busqueda,
+.tabla-ventas {
     border-top: solid 2px black;
     background-color: #E4E2E2;
 }
 
-label{
+label {
     margin-bottom: 10px;
 }
 
 /* Fin de seccion de busqueda */
 /* Inicio Modal */
 
-.modal{
+.modal {
     z-index: -9;
     border: 2px solid rgb(0, 0, 0);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
@@ -214,58 +215,60 @@ label{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin-top: 0px; /* Ajuste vertical */
-    margin-left: 0px; /* Ajuste horizontal */
+    margin-top: 0px;
+    /* Ajuste vertical */
+    margin-left: 0px;
+    /* Ajuste horizontal */
 }
 
-.modal::backdrop{
+.modal::backdrop {
     background-color: rgba(0, 0, 0, 0.352);
 }
 
-.info-mod{
+.info-mod {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.info-mod p{
+.info-mod p {
     margin-bottom: 5px;
 }
 
-.modal button{
+.modal button {
     margin-top: 15px;
     font-size: inherit;
 }
 
-input{
+input {
     font-size: 1em;
     border: none;
     background: none;
 }
 
-select{
+select {
     font-size: 1em;
     width: 325px;
     height: 50px;
     border-radius: 16px;
     border: solid 2px black;
-    padding: 0 15px ;
+    padding: 0 15px;
     background-color: rgb(245, 242, 232);
 }
 
-.modal h2{
+.modal h2 {
     margin: 0px 0px 25px 0px;
 }
 
-.modal{
+.modal {
     display: flex;
     flex-direction: column;
     margin-bottom: 20px;
     text-align: left;
 }
 
-.boton-salida{
+.boton-salida {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -274,16 +277,19 @@ select{
     padding: 0 50px;
 }
 
-#correo, #nombre-prov, #tel, #cant-nueva{
+#email,
+#nombre,
+#telefono,
+#cant-nueva {
     width: 325px;
     height: 50px;
     border-radius: 16px;
     border: solid 2px black;
-    padding: 0 15px ;
+    padding: 0 15px;
     background-color: rgb(245, 242, 232);
 }
 
-.editar{
+.editar {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -291,7 +297,7 @@ select{
     background: none;
 }
 
-.actualizar{
+.actualizar {
     font-size: inherit;
     border: solid 2px #bb5a04;
     background-color: #f27506;
@@ -300,17 +306,17 @@ select{
     margin-top: 20px;
 }
 
-.actualizar:hover{
+.actualizar:hover {
     cursor: pointer;
     background-color: #bb5a04;
     border-color: #f27506;
 }
 
-.actualizar input:hover{
+.actualizar input:hover {
     cursor: pointer;
 }
 
-.actualizar input{
+.actualizar input {
     color: white;
     font-weight: 600;
 }
@@ -318,7 +324,7 @@ select{
 /* Fin Modal */
 /* Disenio Tabla principal */
 
-.tabla table{
+.tabla table {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -328,18 +334,20 @@ select{
     min-height: 600px;
 }
 
-.tabla{
+.tabla {
     align-items: start;
     border-top: solid 2px black;
     background-color: #E4E2E2;
 }
 
-table, th{
+table,
+th {
     border-bottom: 2px solid;
     border-collapse: collapse;
 }
 
-th, td{
+th,
+td {
     text-align: left;
     padding: 5px 15px;
 }
