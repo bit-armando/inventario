@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="{% static "css/inventario.css" %}">
+<body>    
+    <section class="navegacion">
+        <div class="container-body">
+            <a href="{% url "ventas" %}">
+                <button>Ventas</button>
+            </a>
+            <a href="{% url "proveedores" %}">
+                <button>Proveedores</button>
+            </a>
+            <a href="{% url "compras" %}">
+                <button id="compras">Compras</button>
+            </a>
+        </div>
+    </section>
+    <section class="info-busqueda">
+        <div class="container-body">
+            <div class="izq">
+                <form action="#" method="post">
+                    <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
+                    <input id="buscar" type="image" src="{% static "images/search.png" %}">
+                </form>
+                <button onclick="window.modal.showModal()">Editar existencias</button>
+            </div>
+            
+            <div class="der">
+                <p>Total inventario</p>
+                <p id="total">${{ total }}</p>
+            </div>
+        </div>
+    </section>
+
+    <dialog class="modal" id="modal">
+        <div class="info-mod">
+            <h2>Editar existencias</h2>
+            <form action="#" method="post" class="editar">
+                <label for="editar">Categoria: <br></label>
+                <select name="categoria-form" id="categoria-form">
+                    <option value="Tampografia">Tampo</option>
+                    <option value="Serigrafia">Seri</option>
+                </select>
+                <br>
+                <label for="editar">Nombre {Descripcion}: <br></label>
+                <select name="descripcion-form" id="descripcion-form">
+                    <option value="Textil ahulada azul">Textil ahulada azul</option>
+                    <option value="Vinil roja">Vinil roja</option>
+                </select>
+                <br>
+                <label for="cant-nueva">Nueva Cantidad: <br></label>
+                <input type="text" id="cant-nueva">
+                <div class="actualizar">
+                    <input type="submit" value="Actualizar">
+                </div>
+            </form>
+            <button onclick="window.modal.close()">Cerrar</button>
+        </div>
+    </dialog>
+
+    <section class="inventario-prin">
+        <div class="categoria">
+            <div class="cat-check">
+                <p id="titulo-cat">Categorias</p>
+                <form action="#" method="post">
+                    {% csrf_token %}
+                    {% for categoria in categorias %}
+                    <div class="cat">
+                        <p class="nombre-cat">{{ categoria.nombre }}</p>
+                        <input type="checkbox">
+                    </div>
+                    {% endfor %}
+                </form>
+            </div>
+        </div>
+        <div class="inv">
+            <div class="productos-img">
+                {% for producto in inventario %}
+                <div class="Producto">
+                    <a class="boton-info" href="#" onclick="document.getElementById('modal{{ forloop.counter }}').showModal();">
+                        <img src="{% static "images/boton-de-informacion.png" %}" alt="" class="imagen">
+                    </a>
+                    
+                    <img class="imagen" src="{% static "images/image.png" %}" style="width: 45px; height:45px"/>
+                    <div class="Texto">
+                        <p class="prod-nom">{{ producto.producto }}</p>
+                        <p class="prod-pre-uni">Precio de compra: {{ producto.producto.precio_unitario }}</p>
+                        <p class="prod-pre-ven">Precio de Venta: {{ producto.producto.precio_venta }}</p>
+                        <p class="prod-stock">Stock {{ producto.cantidad }}</p>
+                    </div>
+                    <dialog class="modal" id="modal{{ forloop.counter }}">
+                        <div class="info-mod">
+                            <h2>{{ producto.producto.producto }}</h2>
+                            <p>Clave: {{ producto.producto }}</p>
+                            <p>Precio de compra: {{ producto.producto.precio_unitario }}</p>
+                            <p>Inventario total: {{ producto.cantidad }}</p>
+                            <p>Proveedor: {{ producto.producto.proveedor }}</p>
+                            <button onclick="document.getElementById('modal{{ forloop.counter }}').close()">Cerrar</button>
+                        </div>
+                    </dialog>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+</body>
+{% endblock %}

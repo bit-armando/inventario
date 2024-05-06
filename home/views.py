@@ -9,7 +9,7 @@ from .models import *
 
 def index(request):
     """Ventana principal del sistema"""
-    return render(request, 'VentanaPrincipal.html')
+    return render(request, 'inventario-principal.html')
 
 
 def add_product(request):
@@ -37,7 +37,7 @@ def add_product(request):
 
 def compras(request):
     """Ventana de compras"""
-    return (render(request, "Compras.html"))
+    return (render(request, "compras.html"))
 
 
 def registrar_compras(request):
@@ -68,7 +68,7 @@ def registrar_compras(request):
 class MostrarCompras(ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
     model = Inventario
-    template_name = 'Compras.html'
+    template_name = 'compras.html'
     context_object_name = 'inventario'
     paginate_by = 10
 
@@ -106,6 +106,11 @@ class MostrarCompras(ListView):
         return context
 
 
+def ventas(request):
+    """Vista para mostrar las ventas"""
+    return (render(request, "ventas.html"))
+
+
 def registrar_salida(request):
     """Vista para registrar las ventas en el sistema"""
     productos = Producto.objects.all()
@@ -123,7 +128,7 @@ def registrar_salida(request):
 
     # TODO crear un formulario para registrar una salida
     # TODO crear return donde redireccione a la pagina principal
-    return (render(request, 'Ventas.html', {
+    return (render(request, 'ventas.html', {
         'productos': productos
     }))
 
@@ -132,13 +137,13 @@ def registrar_salida(request):
 
 def proveedores(request):
     """Ventana de los proveedores del inventario"""
-    return (render(request, 'Proveedores.html'))
+    return (render(request, 'proveedores.html'))
 
 
 class MostrarProveedores(ListView):
     """Clase que despliega la lista de proveedores del inventario"""
     model = Proveedor
-    template_name = 'Proveedores.html'
+    template_name = 'proveedores.html'
     context_object_name = 'proveedores'
     paginate_by = 10
 
@@ -169,29 +174,29 @@ def registrar_proveedor(request):
 
 class MostrarProductos(ListView):
     model = Inventario
-    template_name = 'VentanaPrincipal.html'
+    template_name = 'inventario-principal.html'
     context_object_name = 'inventario'
     paginate_by = 10
 
     def get_queryset(self):
         return Inventario.objects.all()
-    
+
     def calcular_total(self):
         total = 0
         for producto in Inventario.objects.all():
             total += producto.producto.precio_venta * producto.cantidad
         return total
-    
+
     def calcular_total_producto(self, producto):
         inventario = Inventario.objects.get(producto=producto)
         total_producto = inventario.producto.precio_venta * inventario.cantidad
         return total_producto
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['categorias'] = Categoria.objects.all()
         context['total'] = self.calcular_total()
-        
+
         for producto in context['inventario']:
             producto.total = self.calcular_total_producto(producto.producto)
         return context
