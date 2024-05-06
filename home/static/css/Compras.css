@@ -1,48 +1,62 @@
-*{
+* {
     box-sizing: border-box;
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
+body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
 }
 
-h1{ font-size: 3.5em;}
-h2{ font-size: 2.7em;}
-h3{ font-size: 2em;}
-p{ font-size: 1.25em;}
-hr{border-color: black;}
+h1 {
+    font-size: 3.5em;
+}
 
-button{
+h2 {
+    font-size: 2.7em;
+}
+
+h3 {
+    font-size: 2em;
+}
+
+p {
+    font-size: 1.25em;
+}
+
+hr {
+    border-color: black;
+}
+
+button {
     font-size: 1em;
     font-weight: bold;
     padding: 10px 25px;
     border-radius: 15px;
-    border: 2px solid rgba(0,0,0,0.3);
+    border: 2px solid rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     color: black;
     background-color: #f27506;
 }
 
-button:hover{
+button:hover {
     background-color: #ff8c2e;
     cursor: pointer;
 }
 
-.container{
+.container {
     max-width: 1400px;
     margin: auto;
 }
 
-header{
+header {
     background-color: #f27506;
 }
 
-header .container{
+header .container {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -50,22 +64,22 @@ header .container{
     padding: 10px 10px;
 }
 
-#usuario-img{
+#usuario-img {
     height: 50px;
     width: 50px;
 }
 
-header hr{
+header hr {
     height: 50px;
     margin: 0px 15px;
 }
 
-header .logo{
+header .logo {
     height: 50px;
     width: 50px;
 }
 
-header div{
+header div {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -73,14 +87,14 @@ header div{
     font-weight: bold;
 }
 
-header a{
+header a {
     text-decoration: none;
     color: black;
     margin-left: 10px;
     text-align: center;
 }
 
-section{
+section {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -89,7 +103,7 @@ section{
     height: 100vmin;
 }
 
-section .container{
+section .container {
     border: solid black;
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     border-radius: 25px;
@@ -104,7 +118,7 @@ section .container{
     max-height: 1400px;
 }
 
-.buscador-y-botones{
+.buscador-y-botones {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -113,11 +127,11 @@ section .container{
     border-bottom: solid 2px black;
 }
 
-.buscador-y-botones button{
+.buscador-y-botones button {
     margin-right: 10px;
 }
 
-#buscador{
+#buscador {
     background-image: url(search.png);
     background-position: 10px;
     background-size: 25px;
@@ -125,7 +139,7 @@ section .container{
     text-indent: 20px;
 }
 
-#inventario-total{
+#inventario-total {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,32 +151,35 @@ section .container{
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
 }
 
-#inventario-total p{
+#inventario-total p {
     margin: auto;
 }
 
-#inventario-total hr{
+#inventario-total hr {
     width: 150px;
 }
 
-.tabla-compras table{
+.tabla-compras table {
     box-align: center;
     margin-top: 15px;
     max-height: 600px;
     overflow: scroll;
 }
 
-table, th, td{
+table,
+th,
+td {
     border-bottom: 2px solid;
     border-collapse: collapse;
 }
 
-th, td{
+th,
+td {
     text-align: left;
     padding: 5px 15px;
 }
 
-.boton-salida{
+.boton-salida {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -171,20 +188,20 @@ th, td{
     padding: 0 50px;
 }
 
-.contenido{
+.contenido {
     display: flex;
     flex-direction: column;
 }
 
-.modal form{
+.modal form {
     width: 100%;
 }
 
-.contenido p{
+.contenido p {
     margin-bottom: 5px;
 }
 
-.modal{
+.modal {
     min-width: 340px;
     display: flex;
     flex-direction: column;
@@ -199,26 +216,28 @@ th, td{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    margin-top: 0px; /* Ajuste vertical */
-    margin-left: 0px; /* Ajuste horizontal */
+    margin-top: 0px;
+    /* Ajuste vertical */
+    margin-left: 0px;
+    /* Ajuste horizontal */
 }
 
-.modal::backdrop{
+.modal::backdrop {
     background-color: rgba(0, 0, 0, 0.352);
 }
 
-.modal button{
+.modal button {
     background-color: #ff0c0c;
     color: white;
 }
 
-.modal button:hover{
+.modal button:hover {
     background-color: #ff2e2e;
     color: black;
     cursor: pointer;
 }
 
-.boton-input{
+.boton-input {
     margin-top: 20px;
     margin-bottom: 20px;
     width: fit-content;
@@ -226,24 +245,24 @@ th, td{
     font-weight: bold;
     padding: 10px 25px;
     border-radius: 15px;
-    border: 2px solid rgba(0,0,0,0.3);
+    border: 2px solid rgba(0, 0, 0, 0.3);
     box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.5);
     background-color: #ff0c0c;
     color: white;
-    
+
 }
 
-.boton-input:hover{
+.boton-input:hover {
     background-color: #ff2e2e;
     color: black;
     cursor: pointer;
 }
 
-.modal h2{
+.modal h2 {
     margin: 0px 0px 25px 0px;
 }
 
-input{
+input {
     font-size: 1em;
     padding: 10px 25px;
     border-radius: 15px;
@@ -251,7 +270,7 @@ input{
     width: 100%;
 }
 
-textarea{
+textarea {
     font-size: 1em;
     padding: 10px 25px;
     border-radius: 15px;
@@ -264,7 +283,7 @@ textarea{
     max-width: 540px;
 }
 
-select{
+select {
     width: 100%;
     font-size: 1em;
     padding: 10px 25px;
@@ -278,13 +297,13 @@ select{
     width: 12px;
     height: 0px;
 }
-    
+
 ::-webkit-scrollbar-thumb {
     border: solid 2px white;
     border-radius: 10px;
-    background: #ccc;  
+    background: #ccc;
 }
-    
+
 ::-webkit-scrollbar-thumb:hover {
-    background: #999;  
+    background: #999;
 }
