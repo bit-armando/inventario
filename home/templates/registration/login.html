@@ -1,6 +1,6 @@
-{% extends 'base.html' %}
+{% comment %} {% extends 'base.html' %} {% endcomment %}
 
-{% block title %}Login{% endblock title %}
+{% comment %} {% block title %}Login{% endblock title %} {% endcomment %}
 
 {% load static %}
 {% block content %}
@@ -9,9 +9,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión</title>
     
-    <link rel="stylesheet" href="{% url "css/inicio-sesion.css" %}">
+    <link rel="stylesheet" href="{% static "css/inicio-sesion-nuevo.css" %}">
 </head>
 <body>
+    {% if form.errors %}
+        <p>Su nombre de usuario y contraseña no coinciden. Inténtalo de nuevo.</p>
+    {% endif %}
+
+    {% if next %}
+        {% if user.is_authenticated %}
+            <p>Su cuenta no tiene acceso a esta página. Para continuar,
+            inicie sesión con una cuenta que tenga acceso.</p>
+        {% else %}
+            <p>Por favor inicie sesión para ver esta página.</p>
+        {% endif %}
+    {% endif %}
+
     <section>
         <div class="container">
             <div class="banner">
@@ -24,14 +37,17 @@
             
             <div class="form">
                 <h2>Inicio De Sesión</h2>
-                <form action="#" class="ingreso-datos" method="post">
+                <form action="{% url "login" %}" class="ingreso-datos" method="post">
+                    {% csrf_token %}
+                    
                     Usuario: <br>
-                    <input name="usuario" type="text" />
+                    {{ form.username }}
                     <br>
                     Contraseña: <br>
-                    <input name="contraseña" type="password" />
+                    {{ form.password }}
                     <div class="boton">
                         <input type="submit" value="Iniciar Sesion">
+                        <input type="hidden" name="next" value="{{ next }}">
                     </div>
                 </form>
             </div>

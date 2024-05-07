@@ -22,6 +22,7 @@
         <div class="container-body">
             <div class="izq">
                 <form action="#" method="post">
+                    {% csrf_token %}
                     <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
                     <input id="buscar" type="image" src="{% static "images/search.png" %}">
                 </form>
@@ -84,7 +85,7 @@
                         <img src="{% static "images/boton-de-informacion.png" %}" alt="" class="imagen">
                     </a>
                     
-                    <img class="imagen" src="{% static "images/image.png" %}" style="width: 45px; height:45px"/>
+                    <img class="imagen" src="media-files/{{producto.producto.imagen}}" style="width: 45px; height:45px"/>
                     <div class="Texto">
                         <p class="prod-nom">{{ producto.producto }}</p>
                         <p class="prod-pre-uni">Precio de compra: {{ producto.producto.precio_unitario }}</p>

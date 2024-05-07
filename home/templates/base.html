@@ -13,8 +13,6 @@ Bloques:
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock title %}</title>
-
-    {% comment %} <link rel="stylesheet" href="{% static "css/base.css" %}"> {% endcomment %}
 </head>
 <body>
     <header>
@@ -24,14 +22,20 @@ Bloques:
                 <h2>Distribuidora</h2>
             </div>
             <div class="cuenta">
+                {% if user.is_authenticated %}
                 <img src="{% static "images/user.png "%}" alt="Imagen de usuario">
                 <div class="user">
-                    <p id="nombre">
-                        {Name Last Name}
-                    </p>
-                    <a href="#"> 
-                        <button id="cerrar-sesion">Cerrar Sesión</button>
-                    </a>
+                        <p id="nombre">
+                            {{ user.username }}
+                        </p>
+                        <form action="{% url "logout" %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit" id="cerrar-sesion">Cerrar Sesión</button>
+                        </form>
+                {% else %}
+                    <a href="{% url "login" %}">Iniciar Sesión</a>
+                {% endif %}
+
                 </div>
             </div>
         </div>
