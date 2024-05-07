@@ -111,7 +111,7 @@ def ventas(request):
     return (render(request, "ventas.html"))
 
 
-def registrar_salida(request):
+def registrar_venta(request):
     """Vista para registrar las ventas en el sistema"""
     productos = Producto.objects.all()
 
@@ -132,7 +132,63 @@ def registrar_salida(request):
         'productos': productos
     }))
 
-# TODO crear una vista para mostrar los productos en inventario
+
+class MostrarVentas(ListView):
+    """Clase que desplegara las compras en la vista correspondiente"""
+    model = Inventario
+    template_name = 'ventas.html'
+    context_object_name = 'inventario'
+    paginate_by = 10
+
+    def get_queryset(self):
+        query = self.request.GET.get('buscador')
+        if query:
+            return Inventario.objects.filter(
+                # Buscar en el nombre del producto
+                Q(producto__producto__icontains=query) |
+                # Buscar en la descripción del producto
+                Q(producto__descripcion__icontains=query)
+            )
+        else:
+            return Inventario.objects.all()
+
+    def calcular_utilidad(self, producto):
+        """Para productos individuales"""
+        inventario = Inventario.objects.get(producto=producto)
+        utilidad = inventario.producto.precio_venta - inventario.producto.precio_unitario
+        return utilidad
+
+    def total_utilidades(self):
+        """Utilidades para todo el inventario"""
+        total = 0
+        for producto in Inventario.objects.all():
+            total += ((producto.producto.precio_venta -
+                      producto.producto.precio_unitario) * producto.cantidad)
+        return total
+
+    def calcular_total_venta(self, producto):
+        """Total de venta por producto"""
+        inventario = Inventario.objects.get(producto=producto)
+        total_individual = inventario.producto.precio_venta * inventario.cantidad
+        return total_individual
+
+    def total_inventario(self):
+        total = 0
+        for producto in Inventario.objects.all():
+            total += (producto.producto.precio_venta * producto.cantidad)
+        return total
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all()
+        context['total_utilidades'] = self.total_utilidades()
+        context['total_inventario'] = self.total_inventario()
+
+        for producto in context['inventario']:
+            producto.utilidad = self.calcular_utilidad(producto.producto)
+            producto.total = self.calcular_total_venta(producto.producto)
+
+        return context
 
 
 def proveedores(request):

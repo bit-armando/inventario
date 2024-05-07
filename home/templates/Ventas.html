@@ -31,11 +31,11 @@
             <div class="totales">
                 <div class="der">
                     <p id="total">Total inventario</p>
-                    <p id="total-cant">{$15,999.90}</p>
+                    <p id="total_cant">$ {{ total_inventario }}</p>
                 </div>
                 <div class="der">
                     <p id="total-uti">Total Utilidades</p>
-                    <p id="total-uti-cant">{$15,999.90}</p>
+                    <p id="total_uti_cant">$ {{ total_utilidades }}</p>   
                 </div>
             </div>
         </div>
@@ -43,19 +43,22 @@
 
     <dialog class="modal" id="modal">
         <form method="post" action="#">
+            {% csrf_token %}
             <div class="contenido">
                 <div id="izq">
                     <form class="agregar" method="post" action="#">
                         <label for="editar">Categoria: <br></label>
                         <select name="categoria-form" id="categoria-form">
-                            <option value="Tampografia">Tampo</option>
-                            <option value="Serigrafia">Seri</option>
+                        {% for categoria in categorias %}
+                            <option value="nombre">{{ categoria.nombre }}</option>
+                        {% endfor %}
                         </select>
                         <br>
-                        <label for="editar">Nombre {Descripcion}: <br></label>
+                        <label for="editar">Nombre: <br></label>
                         <select name="descripcion-form" id="descripcion-form">
-                            <option value="Textil ahulada azul">Textil ahulada azul</option>
-                            <option value="Vinil roja">Vinil roja</option>
+                            {% for producto in inventario %}
+                            <option value="">{{ producto.producto.producto }}</option>
+                            {% endfor %}
                         </select>
                         <div>
                             <input class="boton-input" type="submit" value="Agregar">
@@ -70,21 +73,13 @@
                                 <th>Cantidad</th>
                                 <th>Precio</th>
                             </tr>
+                            {% for producto in inventario %}
                             <tr>
-                                <td>Tinta Azul</td>
-                                <td>5</td>
-                                <td>$120.6</td>
-                            </tr>
-                            <tr>
-                                <td>Tinta roja</td>
-                                <td>5</td>
-                                <td>$120.6</td>
-                            </tr>
-                            <tr>
-                                <td>Tinta verde</td>
-                                <td>5</td>
-                                <td>$120.6</td>
-                            </tr>
+                                <td>{{ producto.producto.producto }}</td>
+                                <td>{{ producto.cantidad }}</td>
+                                <td>{{ producto.producto.precio_venta }}</td>
+                            </tr> 
+                            {% endfor %}
                         </table>
                     </div>
                     <p id="titulo-total">Total a pagar:</p>
@@ -110,6 +105,7 @@
             <table>
                 <tr>
                     <th>Categoría</th>
+                    <th>Producto</th>
                     <th>Clave</th>
                     <th>Costo unitario</th>
                     <th>Fecha</th>
@@ -119,39 +115,20 @@
                     <th>Cantidad</th>
                     <th>Total Venta</th>
                 </tr>
+                {% for producto in inventario %}
                 <tr>
-                    <td>Textil Ahulada/GMS</td>
-                    <td>G512</td>
-                    <td>$18.50</td>
-                    <td>10/10/10</td>
-                    <td>Lorem ipsum</td>
-                    <td>$20.6</td>
-                    <td>$20.6</td>
-                    <td>5</td>
-                    <td>$120.6</td>
+                    <td>{{ producto.producto.categoria.nombre }}</td>
+                    <td>{{ producto.producto.producto }}</td>
+                    <td>{{ producto.producto.id_producto }}</td>
+                    <td>${{ producto.producto.precio_unitario }}</td>
+                    <td>Fecha</td>
+                    <td>{{ producto.producto.descripcion }}</td>
+                    <td>${{ producto.utilidad }}</td>
+                    <td>${{ producto.producto.precio_venta }}</td>
+                    <td>{{ producto.cantidad }}</td>
+                    <td>${{ producto.total }}</td>
                 </tr>
-                <tr>
-                    <td>Textil Ahulada/GMS</td>
-                    <td>G512</td>
-                    <td>$18.50</td>
-                    <td>10/10/10</td>
-                    <td>Lorem ipsum</td>
-                    <td>$20.6</td>
-                    <td>$20.6</td>
-                    <td>5</td>
-                    <td>$120.6</td>
-                </tr>
-                <tr>
-                    <td>Textil Ahulada/GMS</td>
-                    <td>G512</td>
-                    <td>$18.50</td>
-                    <td>10/10/10</td>
-                    <td>Lorem ipsum</td>
-                    <td>$20.6</td>
-                    <td>$20.6</td>
-                    <td>5</td>
-                    <td>$120.6</td>
-                </tr>
+                {% endfor %}
             </table>
     </section>
 </body>
