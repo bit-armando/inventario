@@ -101,10 +101,12 @@ class MostrarCompras(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_precio_unitario'] = self.calcular_total()
+        context['productos'] = Producto.objects.all()
 
         for producto in context['inventario']:
             producto.total = self.calcular_total_individual(producto.producto)
         return context
+    
 
 @login_required
 def ventas(request):
@@ -180,7 +182,14 @@ class MostrarProductos(ListView):
     # paginate_by = 10
 
     def get_queryset(self):
-        return Inventario.objects.all()
+        if self.request.GET.get('buscador'):
+            query = self.request.GET.get('buscador')
+            return Inventario.objects.filter(
+                Q(producto__id_producto__icontains=query) |
+                Q(producto__categoria__nombre__icontains=query)
+            )
+        else:
+            return Inventario.objects.all()
 
     def calcular_total(self):
         total = 0
