@@ -180,8 +180,15 @@ class MostrarProductos(ListView):
     # paginate_by = 10
 
     def get_queryset(self):
-        return Inventario.objects.all()
-
+        query = self.request.GET.get('buscador')
+        if query:
+            return Inventario.objects.filter(
+                Q(producto__id_producto__icontains=query) |
+                Q(producto__categoria__nombre__icontains=query)
+            )
+        else:
+            return Inventario.objects.all()
+        
     def calcular_total(self):
         total = 0
         for producto in Inventario.objects.all():
