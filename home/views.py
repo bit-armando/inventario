@@ -1,6 +1,6 @@
-from typing import Any
-from django.db.models.query import QuerySet
 from django.views.generic import ListView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.utils import timezone
@@ -8,6 +8,7 @@ from django.utils import timezone
 from .models import *
 
 
+@login_required
 def index(request):
     """Ventana principal del sistema"""
     return render(request, 'inventario-principal.html')
@@ -38,7 +39,7 @@ def add_product(request):
 
 def compras(request):
     """Ventana de compras"""
-    return (render(request, "compras.html"))
+    return (render(request, "Compras.html"))
 
 
 def registrar_compras(request):
@@ -56,24 +57,20 @@ def registrar_compras(request):
     except Producto.DoesNotExist:
         return redirect('compras')
 
-    fecha_actual = timezone.now()
-
     try:
         inventario_existente = Inventario.objects.get(producto=producto)
         inventario_existente.cantidad += int(cantidad)
-        inventario_existente.fecha = fecha_actual
         inventario_existente.save()
     except Inventario.DoesNotExist:
-        Inventario.objects.create(
-            producto=producto, cantidad=int(cantidad))
+        Inventario.objects.create(producto=producto, cantidad=int(cantidad))
 
     return redirect('compras')
 
 
-class MostrarCompras(ListView):
+class MostrarCompras(LoginRequiredMixin, ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
     model = Inventario
-    template_name = 'compras.html'
+    template_name = 'Compras.html'
     context_object_name = 'inventario'
     paginate_by = 10
 
@@ -111,14 +108,15 @@ class MostrarCompras(ListView):
         return context
 
 
+@login_required
 def ventas(request):
     """Vista para mostrar las ventas"""
-    return (render(request, "ventas.html"))
+    return (render(request, "Ventas.html"))
 
 
-def registrar_venta(request):
+def registrar_salida(request):
     """Vista para registrar las ventas en el sistema"""
-    categorias = Categoria.objects.all()
+    productos = Producto.objects.all()
 
     if request == 'POST':
         producto = request.POST['producto']
@@ -130,13 +128,8 @@ def registrar_venta(request):
         Salida(producto=producto, cantidad=cantidad,
                fecha=fecha, descripcion=descripcion).save()
 
-    categoria_seleccionada = request.POST.get['categoria-form']
-    productos = Producto.objects.get(
-        categoria=categoria_seleccionada)
-
     return (render(request, 'ventas.html', {
-        'productos': productos,
-        'categorias': categorias
+        'productos': productos
     }))
 
 
@@ -200,13 +193,13 @@ class MostrarVentas(ListView):
 
 def proveedores(request):
     """Ventana de los proveedores del inventario"""
-    return (render(request, 'proveedores.html'))
+    return (render(request, 'Proveedores.html'))
 
 
 class MostrarProveedores(ListView):
     """Clase que despliega la lista de proveedores del inventario"""
     model = Proveedor
-    template_name = 'proveedores.html'
+    template_name = 'Proveedores.html'
     context_object_name = 'proveedores'
     paginate_by = 10
 
@@ -239,10 +232,17 @@ class MostrarProductos(ListView):
     model = Inventario
     template_name = 'inventario-principal.html'
     context_object_name = 'inventario'
-    paginate_by = 10
+    # paginate_by = 10
 
     def get_queryset(self):
-        return Inventario.objects.all()
+        query = self.request.GET.get('buscador')
+        if query:
+            return Inventario.objects.filter(
+                Q(producto__id_producto__icontains=query) |
+                Q(producto__categoria__nombre__icontains=query)
+            )
+        else:
+            return Inventario.objects.all()
 
     def calcular_total(self):
         total = 0
