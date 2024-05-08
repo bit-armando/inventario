@@ -22,6 +22,7 @@
     <section class="info-busqueda">
         <div class="container-body">
             <div class="izq">
+                <!--Buscador-->
                 <form action="#" method="get">
                     <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
                     <input id="buscar" type="image" src="{% static "images/search.png" %}">
@@ -48,8 +49,10 @@
                     <form class="agregar" method="post" action="#">
                         <label for="editar">Categoria: <br></label>
                         <select name="categoria-form" id="categoria-form">
+                            {% for producto in productos %}
+                            <option value=""></option>
+                            {% endfor %}
                             <option value="Tampografia">Tampo</option>
-                            <option value="Serigrafia">Seri</option>
                         </select>
                         <br>
                         <label for="editar">Nombre {Descripcion}: <br></label>
@@ -57,36 +60,9 @@
                             <option value="Textil ahulada azul">Textil ahulada azul</option>
                             <option value="Vinil roja">Vinil roja</option>
                         </select>
-                        <div>
-                            <input class="boton-input" type="submit" value="Agregar">
-                        </div>
                     </form>
                 </div>
                 <div id="der">
-                    <div class="recibo">
-                        <table>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                            </tr>
-                            <tr>
-                                <td>Tinta Azul</td>
-                                <td>5</td>
-                                <td>$120.6</td>
-                            </tr>
-                            <tr>
-                                <td>Tinta roja</td>
-                                <td>5</td>
-                                <td>$120.6</td>
-                            </tr>
-                            <tr>
-                                <td>Tinta verde</td>
-                                <td>5</td>
-                                <td>$120.6</td>
-                            </tr>
-                        </table>
-                    </div>
                     <p id="titulo-total">Total a pagar:</p>
                         <div id="subtotal-mod">
                             <p>Subtotal:</p>

@@ -2,34 +2,6 @@ from django.contrib.auth.hashers import make_password
 from django.db import models
 
 
-class Tipo_Empleado(models.Model):
-    # Vista Admin
-    id_empleado = models.AutoField(primary_key=True)
-    tipo = models.CharField(max_length=50, unique=True)
-
-    def __str__(self):
-        return self.tipo
-
-
-class Usuario(models.Model):
-    # Vista Admin
-    id_usuario = models.AutoField(primary_key=True)
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    telefono = models.CharField(max_length=10)
-    direccion = models.CharField(max_length=255)
-    contrasena = models.CharField(max_length=50)
-    username = models.CharField(max_length=50)
-    tipo_empleado = models.ForeignKey(Tipo_Empleado, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.nombre + " " + self.apellido
-
-    def save(self, *args, **kwargs):
-        self.contrasena = make_password(self.contrasena)
-        super().save(*args, **kwargs)
-
-
 class Proveedor(models.Model):
     # Vista Admin
     id_proveedor = models.AutoField(primary_key=True)
@@ -84,16 +56,15 @@ class Inventario(models.Model):
 
 
 class Entrada(models.Model):
-    id_entrada = models.CharField(primary_key=True, max_length=10)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    id_entrada = models.AutoField(primary_key=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-    fecha = models.DateTimeField()
-    descripcion = models.CharField(max_length=255)
-    empleado = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    fecha = models.DateField()
+    empleado = models.CharField(default='', max_length=50)
 
     def __str__(self):
-        return self.fecha
+        return str(self.fecha)
 
 
 class Salida(models.Model):
@@ -101,8 +72,7 @@ class Salida(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     fecha = models.DateTimeField()
-    descripcion = models.CharField(max_length=255)
-    empleado = models.ForeignKey(Usuario, on_delete=models.CASCADE, default='')
+    empleado = models.CharField(default='', max_length=50)
 
     def __str__(self):
         return self.fecha
