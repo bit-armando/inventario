@@ -65,18 +65,20 @@
     <!--Queda pendiente esta seccion para implementar nueva funcionalidad-->
     <dialog class="modal" id="modal2">
         <div class="info-mod">
-            <h2>Registrar Compra</h2>
+            <h2>Editar Compra</h2>
             <form action="#" method="post" class="editar">
                 <label for="editar">ID compra: <br></label>
                 <select name="categoria-form" id="categoria-form">
-                    <option value="no-101">101</option>
-                    <option value="no-102">102</option>
+                {% for producto in inventario %}
+                    <option value="no-101">{{ producto.producto.id_producto }}</option>
+                {% endfor %}
                 </select>
                 <br>
                 <label for="editar">Dato en tabla: <br></label>
                 <select name="descripcion-form" id="descripcion-form">
                     <option value="categoria">Categoria</option>
                     <option value="precio unitario">Precio Unitario</option>
+                    
                 </select>
                 <br>
                 <label for="cant-vieja">Valor anterior: <br></label>
@@ -110,7 +112,7 @@
                 <td>{{ producto.producto.categoria }}</td>
                 <td>{{ producto.producto.id_producto }}</td>
                 <td>${{ producto.producto.precio_unitario }}</td>
-                <td>Fecha</td>
+                <td>{{ producto.producto.fecha }}</td>
                 <td>{{ producto.producto.descripcion }}</td>
                 <td>{{ producto.cantidad }}</td>
                 <td>${{ producto.total }}</td>

@@ -3,6 +3,7 @@ from django.db.models.query import QuerySet
 from django.views.generic import ListView
 from django.shortcuts import render, redirect
 from django.db.models import Q
+from django.utils import timezone
 
 from .models import *
 
@@ -55,12 +56,16 @@ def registrar_compras(request):
     except Producto.DoesNotExist:
         return redirect('compras')
 
+    fecha_actual = timezone.now()
+
     try:
         inventario_existente = Inventario.objects.get(producto=producto)
         inventario_existente.cantidad += int(cantidad)
+        inventario_existente.fecha = fecha_actual
         inventario_existente.save()
     except Inventario.DoesNotExist:
-        Inventario.objects.create(producto=producto, cantidad=int(cantidad))
+        Inventario.objects.create(
+            producto=producto, cantidad=int(cantidad))
 
     return redirect('compras')
 
@@ -113,7 +118,7 @@ def ventas(request):
 
 def registrar_venta(request):
     """Vista para registrar las ventas en el sistema"""
-    productos = Producto.objects.all()
+    categorias = Categoria.objects.all()
 
     if request == 'POST':
         producto = request.POST['producto']
@@ -122,14 +127,16 @@ def registrar_venta(request):
         fecha = request.POST['fecha']
         descripcion = request.POST['descripcion']
         # TODO guardar a la persona que hizo la salida
-
         Salida(producto=producto, cantidad=cantidad,
                fecha=fecha, descripcion=descripcion).save()
 
-    # TODO crear un formulario para registrar una salida
-    # TODO crear return donde redireccione a la pagina principal
+    categoria_seleccionada = request.POST.get['categoria-form']
+    productos = Producto.objects.get(
+        categoria=categoria_seleccionada)
+
     return (render(request, 'ventas.html', {
-        'productos': productos
+        'productos': productos,
+        'categorias': categorias
     }))
 
 

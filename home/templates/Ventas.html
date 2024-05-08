@@ -42,24 +42,27 @@
     </section>
 
     <dialog class="modal" id="modal">
-        <form method="post" action="#">
+        <form method="post" action="{% url "registrar_venta" %}">
             {% csrf_token %}
             <div class="contenido">
                 <div id="izq">
-                    <form class="agregar" method="post" action="#">
-                        <label for="editar">Categoria: <br></label>
-                        <select name="categoria-form" id="categoria-form">
+                    <form class="agregar" method="post" action="{% url "registrar_venta" %}">
+                        {% csrf_token %}
+                        <label for="categoria-form">Categoria: <br></label>
+                        <select name="categoria-form" id="categoria-form" onchange="this.form.submit()">
                         {% for categoria in categorias %}
-                            <option value="nombre">{{ categoria.nombre }}</option>
+                            <option value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
                         {% endfor %}
                         </select>
+                        
                         <br>
-                        <label for="editar">Nombre: <br></label>
+                        <label for="descripcion-form">Nombre: <br></label>
                         <select name="descripcion-form" id="descripcion-form">
                             {% for producto in inventario %}
-                            <option value="">{{ producto.producto.producto }}</option>
+                            <option value="{{ producto.producto.id_producto }}">{{ producto.producto.producto }}</option>
                             {% endfor %}
                         </select>
+
                         <div>
                             <input class="boton-input" type="submit" value="Agregar">
                         </div>
@@ -93,7 +96,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> 
+            
             <div class="boton-salida">
                 <input class="boton-input" type="submit" value="Generar Venta">
                 <button onclick="window.modal.close()">Cerrar</button>
