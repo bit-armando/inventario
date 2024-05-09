@@ -128,7 +128,7 @@ def registrar_salida(request):
         Salida(producto=producto, cantidad=cantidad,
                fecha=fecha, descripcion=descripcion).save()
 
-    return (render(request, 'ventas.html', {
+    return (render(request, 'Ventas.html', {
         'productos': productos
     }))
 
@@ -136,7 +136,7 @@ def registrar_salida(request):
 class MostrarVentas(ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
     model = Inventario
-    template_name = 'ventas.html'
+    template_name = 'Ventas.html'
     context_object_name = 'inventario'
     paginate_by = 10
 
