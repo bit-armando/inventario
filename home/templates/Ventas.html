@@ -16,12 +16,16 @@
             <a href="{% url "index" %}">
                 <button>Inventario</button>
             </a>
+            <a href="{% url 'admin:index' %}">
+                <button id="administrador">Administrador</button>
+            </a>
         </div>
     </section>
 
     <section class="info-busqueda">
         <div class="container-body">
             <div class="izq">
+                <!--Buscador-->
                 <form action="#" method="get">
                     <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
                     <input id="buscar" type="image" src="{% static "images/search.png" %}">
@@ -46,13 +50,13 @@
             {% csrf_token %}
             <div class="contenido">
                 <div id="izq">
-                    <form class="agregar" method="post" action="{% url "registrar_venta" %}">
-                        {% csrf_token %}
-                        <label for="categoria-form">Categoria: <br></label>
-                        <select name="categoria-form" id="categoria-form" onchange="this.form.submit()">
-                        {% for categoria in categorias %}
-                            <option value="{{ categoria.nombre }}">{{ categoria.nombre }}</option>
-                        {% endfor %}
+                    <form class="agregar" method="post" action="#">
+                        <label for="editar">Categoria: <br></label>
+                        <select name="categoria-form" id="categoria-form">
+                            {% for producto in productos %}
+                            <option value=""></option>
+                            {% endfor %}
+                            <option value="Tampografia">Tampo</option>
                         </select>
                         
                         <br>
@@ -62,29 +66,9 @@
                             <option value="{{ producto.producto.id_producto }}">{{ producto.producto.producto }}</option>
                             {% endfor %}
                         </select>
-
-                        <div>
-                            <input class="boton-input" type="submit" value="Agregar">
-                        </div>
                     </form>
                 </div>
                 <div id="der">
-                    <div class="recibo">
-                        <table>
-                            <tr>
-                                <th>Nombre</th>
-                                <th>Cantidad</th>
-                                <th>Precio</th>
-                            </tr>
-                            {% for producto in inventario %}
-                            <tr>
-                                <td>{{ producto.producto.producto }}</td>
-                                <td>{{ producto.cantidad }}</td>
-                                <td>{{ producto.producto.precio_venta }}</td>
-                            </tr> 
-                            {% endfor %}
-                        </table>
-                    </div>
                     <p id="titulo-total">Total a pagar:</p>
                         <div id="subtotal-mod">
                             <p>Subtotal:</p>

@@ -3,7 +3,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from django.utils import timezone
+from django.contrib.auth import logout
+from datetime import date
+
 
 from .models import *
 
@@ -61,30 +63,69 @@ def registrar_compras(request):
         inventario_existente = Inventario.objects.get(producto=producto)
         inventario_existente.cantidad += int(cantidad)
         inventario_existente.save()
+
+        total = int(cantidad) * producto.precio_unitario
+        Entrada(producto=producto, cantidad=int(cantidad), total=total,
+                fecha=date.today(), empleado=request.user.username).save()
+
     except Inventario.DoesNotExist:
         Inventario.objects.create(producto=producto, cantidad=int(cantidad))
+        Entrada(producto=producto, cantidad=int(cantidad), total=total,
+                fecha=date.today(), empleado=str(request.user)).save()
+
+    return redirect('compras')
+
+
+def actualizar_compras(request):
+    if request.method == 'POST':
+        folio = request.POST['entrada-editar']
+        cantidad_nueva = request.POST['cantidad-nueva']
+
+        entrada = Entrada.objects.get(id_entrada=folio)
+        producto = Producto.objects.get(
+            id_producto=entrada.producto.id_producto)
+        inventario_producto = Inventario.objects.get(producto=producto)
+
+        inventario_existente = inventario_producto.cantidad
+        cantidad_folio = entrada.cantidad
+
+    if cantidad_nueva.strip() == '':
+        return redirect('compras')
+
+    try:
+        cantidad_antigua = inventario_existente - cantidad_folio
+        cantidad_actulizada = cantidad_antigua + int(cantidad_nueva)
+
+        entrada.cantidad = int(cantidad_nueva)
+        entrada.total = producto.precio_unitario * int(cantidad_nueva)
+        entrada.save()
+
+        inventario_producto.cantidad = cantidad_actulizada
+        inventario_producto.save()
+
+    except:
+        pass
 
     return redirect('compras')
 
 
 class MostrarCompras(LoginRequiredMixin, ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
-    model = Inventario
+    model = Entrada
     template_name = 'Compras.html'
-    context_object_name = 'inventario'
-    paginate_by = 10
+    context_object_name = 'Entradas'
+    paginate_by = 20
 
     def get_queryset(self):
         query = self.request.GET.get('buscador')
         if query:
-            return Inventario.objects.filter(
-                # Buscar en el nombre del producto
+            return Entrada.objects.filter(
                 Q(producto__producto__icontains=query) |
-                # Buscar en la descripción del producto
-                Q(producto__descripcion__icontains=query)
+                Q(producto__descripcion__icontains=query) |
+                Q(producto__id_producto__icontains=query)
             )
         else:
-            return Inventario.objects.all()
+            return Entrada.objects.order_by('-id_entrada')
 
     def calcular_total(self):
         """Calcular el total de las compras"""
@@ -102,10 +143,18 @@ class MostrarCompras(LoginRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['total_precio_unitario'] = self.calcular_total()
+        context['productos'] = Producto.objects.all()
+        context['inventario'] = Inventario.objects.all()
+        context['compras_user'] = Entrada.objects.filter(
+            empleado=self.request.user.username).order_by('-id_entrada')
 
         for producto in context['inventario']:
             producto.total = self.calcular_total_individual(producto.producto)
         return context
+
+
+class MostrarVentas(LoginRequiredMixin, ListView):
+    model = Salida
 
 
 @login_required
@@ -235,8 +284,8 @@ class MostrarProductos(ListView):
     # paginate_by = 10
 
     def get_queryset(self):
-        query = self.request.GET.get('buscador')
-        if query:
+        if self.request.GET.get('buscador'):
+            query = self.request.GET.get('buscador')
             return Inventario.objects.filter(
                 Q(producto__id_producto__icontains=query) |
                 Q(producto__categoria__nombre__icontains=query)
@@ -263,3 +312,8 @@ class MostrarProductos(ListView):
         for producto in context['inventario']:
             producto.total = self.calcular_total_producto(producto.producto)
         return context
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')

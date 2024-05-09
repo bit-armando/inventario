@@ -10,11 +10,14 @@
             <a href="{% url "ventas" %}">
                 <button>Ventas</button>
             </a>
+            <a href="{% url "compras" %}">
+                <button id="compras">Compras</button>
+            </a>
             <a href="{% url "proveedores" %}">
                 <button>Proveedores</button>
             </a>
-            <a href="{% url "compras" %}">
-                <button id="compras">Compras</button>
+            <a href="{% url 'admin:index' %}">
+                <button id="administrador">Administrador</button>
             </a>
         </div>
     </section>
@@ -26,7 +29,6 @@
                     <input id="search" type="text" name="buscador" placeholder="Buscar Producto">
                     <input id="buscar" type="image" src="{% static "images/search.png" %}">
                 </form>
-                <button onclick="window.modal.showModal()">Editar existencias</button>
             </div>
             
             <div class="der">
@@ -36,47 +38,7 @@
         </div>
     </section>
 
-    <dialog class="modal" id="modal">
-        <div class="info-mod">
-            <h2>Editar existencias</h2>
-            <form action="#" method="post" class="editar">
-                <label for="editar">Categoria: <br></label>
-                <select name="categoria-form" id="categoria-form">
-                    <option value="Tampografia">Tampo</option>
-                    <option value="Serigrafia">Seri</option>
-                </select>
-                <br>
-                <label for="editar">Nombre {Descripcion}: <br></label>
-                <select name="descripcion-form" id="descripcion-form">
-                    <option value="Textil ahulada azul">Textil ahulada azul</option>
-                    <option value="Vinil roja">Vinil roja</option>
-                </select>
-                <br>
-                <label for="cant-nueva">Nueva Cantidad: <br></label>
-                <input type="text" id="cant-nueva">
-                <div class="actualizar">
-                    <input type="submit" value="Actualizar">
-                </div>
-            </form>
-            <button onclick="window.modal.close()">Cerrar</button>
-        </div>
-    </dialog>
-
     <section class="inventario-prin">
-        <div class="categoria">
-            <div class="cat-check">
-                <p id="titulo-cat">Categorias</p>
-                <form action="#" method="post">
-                    {% csrf_token %}
-                    {% for categoria in categorias %}
-                    <div class="cat">
-                        <p class="nombre-cat">{{ categoria.nombre }}</p>
-                        <input type="checkbox">
-                    </div>
-                    {% endfor %}
-                </form>
-            </div>
-        </div>
         <div class="inv">
             <div class="productos-img">
                 {% for producto in inventario %}

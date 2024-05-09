@@ -55,7 +55,7 @@ class Folio(models.Model):
     id_folio = models.IntegerField(auto_created=True, primary_key=True)
     tipo = models.CharField(choices=TIPOS_CHOICES, max_length=1)
     productos = models.ManyToManyField(Producto, through='FolioProducto')
-    
+
     def __str__(self):
         return self.id_folio
 
@@ -65,10 +65,10 @@ class FolioProducto(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     precio = models.DecimalField(max_digits=10, decimal_places=2)
-    
+
     def __str__(self):
         return self.folio.id_folio
-    
+
 
 class Inventario(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
@@ -79,16 +79,15 @@ class Inventario(models.Model):
 
 
 class Entrada(models.Model):
-    id_entrada = models.CharField(primary_key=True, max_length=10)
-    proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
+    id_entrada = models.AutoField(primary_key=True)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
-    fecha = models.DateTimeField()
-    descripcion = models.CharField(max_length=255)
-    empleado = models.CharField(max_length=50, default='')
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    fecha = models.DateField()
+    empleado = models.CharField(default='', max_length=50)
 
     def __str__(self):
-        return self.fecha
+        return str(self.fecha)
 
 
 class Salida(models.Model):
@@ -96,8 +95,7 @@ class Salida(models.Model):
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
     cantidad = models.IntegerField()
     fecha = models.DateTimeField()
-    descripcion = models.CharField(max_length=255)
-    empleado = models.CharField(max_length=50, default='')
+    empleado = models.CharField(default='', max_length=50)
 
     def __str__(self):
         return self.fecha
