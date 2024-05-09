@@ -10,11 +10,14 @@
             <a href="{% url "ventas" %}">
                 <button>Ventas</button>
             </a>
+            <a href="{% url "compras" %}">
+                <button id="compras">Compras</button>
+            </a>
             <a href="{% url "proveedores" %}">
                 <button>Proveedores</button>
             </a>
-            <a href="{% url "compras" %}">
-                <button id="compras">Compras</button>
+            <a href="{% url 'admin:index' %}">
+                <button id="administrador">Administrador</button>
             </a>
         </div>
     </section>
