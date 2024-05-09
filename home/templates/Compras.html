@@ -5,6 +5,7 @@
 {% block content %}
 <link rel="stylesheet" href="{% static "css/Compras.css" %}">
 <body>
+    <!--Seccion de navegacion-->
     <section class="navegacion">
         <div class="container-body">
             <a href="{% url "ventas" %}">
@@ -70,24 +71,17 @@
     <dialog class="modal" id="modal2">
         <div class="info-mod">
             <h2>Registrar Compra</h2>
-            <form action="#" method="post" class="editar">
+            <form action="{% url "actualizar_compras" %}" method="post" class="editar">
+                {% csrf_token %}
                 <label for="editar">ID compra: <br></label>
-                <select name="categoria-form" id="categoria-form">
-                    <option value="no-101">101</option>
-                    <option value="no-102">102</option>
+                <select name="entrada-editar" id="categoria-form">
+                    {% for entrada in compras_user %}
+                    <option value={{entrada.id_entrada}}>{{entrada.id_entrada}}</option>
+                    {% endfor %}                    
                 </select>
                 <br>
-                <label for="editar">Dato en tabla: <br></label>
-                <select name="descripcion-form" id="descripcion-form">
-                    <option value="categoria">Categoria</option>
-                    <option value="precio unitario">Precio Unitario</option>
-                </select>
-                <br>
-                <label for="cant-vieja">Valor anterior: <br></label>
-                <h3>{Valor anterior}</h3>
-                <br>
-                <label for="cant-nueva">Nuevo valor: <br></label>
-                <input type="text" id="cant-nueva">
+                <label for="editar">Cantidad nueva: <br></label>
+                <input name="cantidad-nueva" type="number" id="cantidad"/>
                 <div class="actualizar">
                     <input type="submit" value="Actualizar">
                 </div>
@@ -101,7 +95,7 @@
             <tr>
                 <th>Responsable</th>
                 <th>Producto</th>
-                <th>Categoría</th>
+                <th>Folio</th>
                 <th>Clave</th>
                 <th>Descripción</th>
                 <th>Fecha</th>
@@ -113,7 +107,7 @@
             <tr>
                 <th>{{ producto.empleado }}</th>
                 <td>{{ producto.producto.producto }}</td>
-                <td>{{ producto.producto.categoria }}</td>
+                <td>{{ producto.id_entrada }}</td>
                 <td>{{ producto.producto.id_producto }}</td>
                 <td>{{ producto.producto.descripcion }}</td>
                 <td>{{ producto.fecha|date:"d F Y" }}</td>

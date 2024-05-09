@@ -13,4 +13,5 @@ urlpatterns = [
          name="registrar_proveedor"),
     path('compras/', views.MostrarCompras.as_view(), name='compras'),
     path('registro/compras/', views.registrar_compras, name='registrar_compras'),
+    path('actualizar/compras/', views.actualizar_compras, name='actualizar_compras'),
 ]

@@ -76,6 +76,40 @@ def registrar_compras(request):
     return redirect('compras')
 
 
+def actualizar_compras(request):
+    if request.method == 'POST':
+        folio = request.POST['entrada-editar']
+        cantidad_nueva = request.POST['cantidad-nueva']
+        
+        entrada = Entrada.objects.get(id_entrada=folio)
+        producto = Producto.objects.get(id_producto=entrada.producto.id_producto)
+        inventario_producto = Inventario.objects.get(producto=producto)
+        
+        inventario_existente = inventario_producto.cantidad
+        cantidad_folio = entrada.cantidad
+        
+        
+    if cantidad_nueva.strip() == '':
+        return redirect('compras')
+    
+    
+    try:
+        cantidad_antigua = inventario_existente - cantidad_folio
+        cantidad_actulizada = cantidad_antigua + int(cantidad_nueva)
+        
+        entrada.cantidad = int(cantidad_nueva)
+        entrada.total = producto.precio_unitario * int(cantidad_nueva)
+        entrada.save()
+        
+        inventario_producto.cantidad = cantidad_actulizada
+        inventario_producto.save()
+        
+    except:
+        pass
+    
+    return redirect('compras')
+
+
 class MostrarCompras(LoginRequiredMixin, ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
     model = Entrada
@@ -112,6 +146,7 @@ class MostrarCompras(LoginRequiredMixin, ListView):
         context['total_precio_unitario'] = self.calcular_total()
         context['productos'] = Producto.objects.all()
         context['inventario'] = Inventario.objects.all()
+        context['compras_user'] = Entrada.objects.filter(empleado=self.request.user.username).order_by('-id_entrada')
 
         for producto in context['inventario']:
             producto.total = self.calcular_total_individual(producto.producto)
