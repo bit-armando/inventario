@@ -293,6 +293,15 @@ select {
     border-radius: 16px;
 }
 
+#cantidad {
+    width: 325px !important;
+    height: 50px !important;
+    border-radius: 16px !important;
+    border: solid 2px black !important;
+    padding: 0 15px !important;
+    background-color: rgb(245, 242, 232) !important;
+}
+
 .boton-input:hover {
     cursor: pointer;
     background-color: #bb5a04;

@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static "css/Proveedores.css" %}">
+<link rel="stylesheet" href="{% static "css/proveedores.css" %}">
 <body>
     <section class="navegacion">
         <div class="container-body">
@@ -63,24 +63,24 @@
     <dialog class="modal" id="modal2">
         <div class="info-mod">
             <h2>Editar Proveedor</h2>
-            <form action="#" method="post" class="editar">
-                <label for="editar">Nombre: <br></label>
-                <select name="categoria-form" id="categoria-form">
-                    <option value="Proveedor1">Esteren</option>
-                    <option value="Proveedor2">Carls JR</option>
+            <form action="{% url 'actualizar_proveedor' %}" method="post" class="editar">
+                {% csrf_token %}
+                <label for="id_proveedor">Proveedor: <br></label>
+                <select name="id_proveedor" id="id_proveedor">
+                    {% for proveedor in proveedores %}
+                    <option value="{{ proveedor.id_proveedor }}">{{ proveedor.nombre }}</option>
+                    {% endfor %}
                 </select>
                 <br>
-                <label for="editar">Dato de columna: <br></label>
-                <select name="descripcion-form" id="descripcion-form">
-                    <option value="Nombre">Nombre</option>
-                    <option value="Telefono">Telefono</option>
+                <label for="opcion">Dato de columna: <br></label>
+                <select name="opcion" id="opcion">
+                    <option value="nombre">Nombre</option>
+                    <option value="telefono">Telefono</option>
+                    <option value="email">Email</option>
                 </select>
                 <br>
-                <label for="cant-vieja">Valor anterior: <br></label>
-                <h3>{Valor anterior}</h3>
-                <br>
-                <label for="cant-nueva">Nuevo dato: <br></label>
-                <input type="text" id="cant-nueva">
+                <label for="valor_nuevo">Nuevo dato: <br></label>
+                <input type="text" name="valor_nuevo" id="valor_nuevo" class="boton-input">
                 <div class="actualizar">
                     <input type="submit" value="Editar">
                 </div>
@@ -88,6 +88,7 @@
             <button onclick="window.modal2.close()">Cerrar</button>
         </div>
     </dialog>
+    
 
     <section class="tabla">
         <table>
@@ -99,8 +100,8 @@
             {% for proveedor in proveedores%}
             <tr>
                 <td>{{ proveedor.nombre }}</td>
-                <td>{{ proveedor.email }}</td>
                 <td>{{ proveedor.telefono }}</td>
+                <td>{{ proveedor.email }}</td>
             </tr>
             {% endfor %}
         </table>
