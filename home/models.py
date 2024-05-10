@@ -98,4 +98,4 @@ class Salida(models.Model):
     empleado = models.CharField(default='', max_length=50)
 
     def __str__(self):
-        return self.fecha
+        return str(self.fecha)

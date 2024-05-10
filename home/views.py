@@ -50,7 +50,6 @@ def registrar_compras(request):
         clave = request.POST['clave']
         cantidad = request.POST['cantidad']
 
-    # En caso de que se seleccione a cerrar el formulario
     if cantidad.strip() == '' or not cantidad.isdigit():
         return redirect('compras')
 
@@ -149,12 +148,9 @@ class MostrarCompras(LoginRequiredMixin, ListView):
             empleado=self.request.user.username).order_by('-id_entrada')
 
         for producto in context['inventario']:
-            producto.total = self.calcular_total_individual(producto.producto)
+            producto.total = self.calcular_total_individual(
+                producto.producto)
         return context
-
-
-class MostrarVentas(LoginRequiredMixin, ListView):
-    model = Salida
 
 
 @login_required
@@ -165,41 +161,50 @@ def ventas(request):
 
 def registrar_salida(request):
     """Vista para registrar las ventas en el sistema"""
-    productos = Producto.objects.all()
-
-    if request == 'POST':
-        producto = request.POST['producto']
+    if request.method == 'POST':
+        clave = request.POST['clave']
         cantidad = request.POST['cantidad']
-        # TODO guardar solo fecha
-        fecha = request.POST['fecha']
-        descripcion = request.POST['descripcion']
-        # TODO guardar a la persona que hizo la salida
-        Salida(producto=producto, cantidad=cantidad,
-               fecha=fecha, descripcion=descripcion).save()
 
-    return (render(request, 'Ventas.html', {
-        'productos': productos
-    }))
+    if cantidad.strip() == '' or not cantidad.isdigit():
+        return redirect('ventas')
+
+    try:
+        producto = Producto.objects.get(id_producto=clave)
+    except:
+        return redirect('ventas')
+
+    try:
+        producto_existente = Inventario.objects.get(producto=producto)
+        producto_existente.cantidad -= int(cantidad)
+        producto_existente.save()
+
+        total = int(cantidad) * producto.precio_venta
+        Salida(producto=producto, cantidad=int(cantidad),
+               fecha=date.today(), empleado=str(request.user)).save()
+
+    except Inventario.DoesNotExist:
+        return redirect('ventas')
+
+    return redirect('ventas')
 
 
-class MostrarVentas(ListView):
+class MostrarVentas(LoginRequiredMixin, ListView):
     """Clase que desplegara las compras en la vista correspondiente"""
-    model = Inventario
+    model = Salida
     template_name = 'Ventas.html'
-    context_object_name = 'inventario'
-    paginate_by = 10
+    context_object_name = 'Salidas'
+    paginate_by = 20
 
     def get_queryset(self):
         query = self.request.GET.get('buscador')
         if query:
             return Inventario.objects.filter(
-                # Buscar en el nombre del producto
                 Q(producto__producto__icontains=query) |
-                # Buscar en la descripción del producto
-                Q(producto__descripcion__icontains=query)
+                Q(producto__descripcion__icontains=query) |
+                Q(producto__id_producto__icontains=query)
             )
         else:
-            return Inventario.objects.all()
+            return Salida.objects.order_by('-id_salida')
 
     def calcular_utilidad(self, producto):
         """Para productos individuales"""
@@ -229,11 +234,15 @@ class MostrarVentas(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['categorias'] = Categoria.objects.all()
+        context['productos'] = Producto.objects.all()
         context['total_utilidades'] = self.total_utilidades()
         context['total_inventario'] = self.total_inventario()
+        context['inventario'] = Inventario.objects.all()
+        context['ventas_usuario'] = Salida.objects.filter(
+            empleado=self.request.user.username
+        ).order_by('-id_salida')
 
-        for producto in context['inventario']:
+        for producto in context['Salidas']:
             producto.utilidad = self.calcular_utilidad(producto.producto)
             producto.total = self.calcular_total_venta(producto.producto)
 

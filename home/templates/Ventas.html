@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static "css/Ventas.css" %}">
+<link rel="stylesheet" href="{% static "css/ventas.css" %}">
 <body>
     <section class="navegacion">
         <div class="container-body">
@@ -46,52 +46,34 @@
     </section>
 
     <dialog class="modal" id="modal">
-        <form method="post" action="{% url "registrar_venta" %}">
-            {% csrf_token %}
-            <div class="contenido">
-                <div id="izq">
-                    <form class="agregar" method="post" action="#">
-                        <label for="editar">Categoria: <br></label>
-                        <select name="categoria-form" id="categoria-form">
-                            {% for producto in productos %}
-                            <option value=""></option>
-                            {% endfor %}
-                            <option value="Tampografia">Tampo</option>
-                        </select>
-                        
-                        <br>
-                        <label for="descripcion-form">Nombre: <br></label>
-                        <select name="descripcion-form" id="descripcion-form">
-                            {% for producto in inventario %}
-                            <option value="{{ producto.producto.id_producto }}">{{ producto.producto.producto }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
+        <div class="info-mod">
+            <h2>Registrar Venta</h2>
+            <form action="{% url "registrar_salida" %}" method="post" class="editar">
+                {% csrf_token %}
+
+                <label for="clave">Clave: <br></label>
+                <select name="clave" id="clave">
+                {% for producto in productos %}
+                    <option value="{{producto.id_producto}}">{{ producto.id_producto }}</option>
+                {% endfor %}
+                </select>
+                <br>
+
+                <label for="cantidad">Cantidad: <br></label>
+                <input name="cantidad" type="number" id="cantidad"/>
+                
+                <div class="boton-input">
+                    <input type="submit" value="Registrar Venta">
                 </div>
-                <div id="der">
-                    <p id="titulo-total">Total a pagar:</p>
-                        <div id="subtotal-mod">
-                            <p>Subtotal:</p>
-                            <p>$1,432.50</p>
-                        </div>
-                        <div id="total-mod">
-                            <p>Total:</p>
-                            <p>$1,689.50</p>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            
-            <div class="boton-salida">
-                <input class="boton-input" type="submit" value="Generar Venta">
-                <button onclick="window.modal.close()">Cerrar</button>
-            </div>
-        </form>
+            </form>
+            <button onclick="window.modal.close()">Cerrar</button>
+        </div>
     </dialog>
 
     <section class="tabla">
             <table>
                 <tr>
+                    <th>Empleado</th>
                     <th>Categoría</th>
                     <th>Producto</th>
                     <th>Clave</th>
@@ -103,8 +85,9 @@
                     <th>Cantidad</th>
                     <th>Total Venta</th>
                 </tr>
-                {% for producto in inventario %}
+                {% for producto in Salidas %}
                 <tr>
+                    <td>{{ producto.empleado }}</td>
                     <td>{{ producto.producto.categoria.nombre }}</td>
                     <td>{{ producto.producto.producto }}</td>
                     <td>{{ producto.producto.id_producto }}</td>

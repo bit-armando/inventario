@@ -67,10 +67,9 @@
         </div>
     </dialog>
 
-    <!--Queda pendiente esta seccion para implementar nueva funcionalidad-->
     <dialog class="modal" id="modal2">
         <div class="info-mod">
-            <h2>Registrar Compra</h2>
+            <h2>Actualizar Compra</h2>
             <form action="{% url "actualizar_compras" %}" method="post" class="editar">
                 {% csrf_token %}
                 <label for="editar">ID compra: <br></label>
