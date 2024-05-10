@@ -294,6 +294,28 @@ def registrar_proveedor(request):
     return redirect('proveedores')
 
 
+def actualizar_proveedor(request):
+    """Actualizar datos de proveedores"""
+    if request.method == "POST":
+        id_proveedor = request.POST.get('id_proveedor')
+        opcion = request.POST.get('opcion')
+        valor_nuevo = request.POST.get('valor_nuevo')
+
+        try:
+            proveedor = Proveedor.objects.get(id_proveedor=id_proveedor)
+            if opcion == 'nombre':
+                proveedor.nombre = valor_nuevo
+            elif opcion == 'telefono':
+                proveedor.telefono = valor_nuevo
+            elif opcion == 'email':
+                proveedor.email = valor_nuevo
+            proveedor.save()
+        except Proveedor.DoesNotExist:
+            return redirect("proveedores")
+
+    return redirect('proveedores')
+
+
 class MostrarProductos(ListView):
     model = Inventario
     template_name = 'inventario-principal.html'

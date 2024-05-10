@@ -280,7 +280,8 @@ select {
 #email,
 #nombre,
 #telefono,
-#cant-nueva {
+#cant-nueva,
+#valor_nuevo {
     width: 325px;
     height: 50px;
     border-radius: 16px;

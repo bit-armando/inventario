@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block content %}
-<link rel="stylesheet" href="{% static "css/ventas.css" %}">
+<link rel="stylesheet" href="{% static "css/Ventas.css" %}">
 <body>
     <section class="navegacion">
         <div class="container-body">
@@ -62,7 +62,7 @@
                 <label for="cantidad">Cantidad: <br></label>
                 <input name="cantidad" type="number" id="cantidad"/>
                 
-                <div class="boton-input">
+                <div class="">
                     <input type="submit" value="Registrar Venta">
                 </div>
             </form>
@@ -92,7 +92,7 @@
                     <td>{{ producto.producto.producto }}</td>
                     <td>{{ producto.producto.id_producto }}</td>
                     <td>${{ producto.producto.precio_unitario }}</td>
-                    <td>Fecha</td>
+                    <td>{{ producto.fecha }}</td>
                     <td>{{ producto.producto.descripcion }}</td>
                     <td>${{ producto.utilidad }}</td>
                     <td>${{ producto.producto.precio_venta }}</td>
