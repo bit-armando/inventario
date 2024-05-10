@@ -215,20 +215,28 @@ class MostrarVentas(LoginRequiredMixin, ListView):
     def total_utilidades(self):
         """Utilidades para todo el inventario"""
         total = 0
-        for producto in Inventario.objects.all():
+        for producto in Salida.objects.all():
             total += ((producto.producto.precio_venta -
                       producto.producto.precio_unitario) * producto.cantidad)
         return total
 
     def calcular_total_venta(self, producto):
         """Total de venta por producto"""
-        inventario = Inventario.objects.get(producto=producto)
-        total_individual = inventario.producto.precio_venta * inventario.cantidad
-        return total_individual
+        total_ventas_producto = []
 
-    def total_inventario(self):
+        # Obtener todas las incidencias del producto
+        incidencias = Inventario.objects.filter(producto=producto)
+
+        # Calcular el total de ventas para cada incidencia del producto dado
+        for incidencia in incidencias:
+            total_individual = incidencia.producto.precio_venta * incidencia.cantidad
+            total_ventas_producto.append(total_individual)
+
+        return total_ventas_producto
+
+    def total_ventas(self):
         total = 0
-        for producto in Inventario.objects.all():
+        for producto in Salida.objects.all():
             total += (producto.producto.precio_venta * producto.cantidad)
         return total
 
@@ -236,7 +244,7 @@ class MostrarVentas(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         context['productos'] = Producto.objects.all()
         context['total_utilidades'] = self.total_utilidades()
-        context['total_inventario'] = self.total_inventario()
+        context['total_ventas'] = self.total_ventas()
         context['inventario'] = Inventario.objects.all()
         context['ventas_usuario'] = Salida.objects.filter(
             empleado=self.request.user.username
