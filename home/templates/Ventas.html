@@ -5,6 +5,14 @@
 {% block content %}
 <link rel="stylesheet" href="{% static "css/Ventas.css" %}">
 <body>
+    <div>
+        {% if messages %}
+            {% for message in messages %}
+                <h2>{{message}}</h2>
+            {% endfor %}
+        {% endif %}
+    </div>
+
     <section class="navegacion">
         <div class="container-body">
             <a href="{% url "compras" %}">
@@ -74,10 +82,8 @@
             <table>
                 <tr>
                     <th>Empleado</th>
-                    <th>Categoría</th>
                     <th>Producto</th>
                     <th>Clave</th>
-                    <th>Costo unitario</th>
                     <th>Fecha</th>
                     <th>Descripción</th>
                     <th>Utilidad</th>
@@ -85,19 +91,17 @@
                     <th>Cantidad</th>
                     <th>Total Venta</th>
                 </tr>
-                {% for producto in Salidas %}
+                {% for venta in Salidas %}
                 <tr>
-                    <td>{{ producto.empleado }}</td>
-                    <td>{{ producto.producto.categoria.nombre }}</td>
-                    <td>{{ producto.producto.producto }}</td>
-                    <td>{{ producto.producto.id_producto }}</td>
-                    <td>${{ producto.producto.precio_unitario }}</td>
-                    <td>{{ producto.fecha }}</td>
-                    <td>{{ producto.producto.descripcion }}</td>
-                    <td>${{ producto.utilidad }}</td>
-                    <td>${{ producto.producto.precio_venta }}</td>
-                    <td>{{ producto.cantidad }}</td>
-                    <td>${{ producto.total }}</td>
+                    <td>{{ venta.empleado }}</td>
+                    <td>{{ venta.producto.producto }}</td>
+                    <td>{{ venta.producto.id_producto }}</td>
+                    <td>{{ venta.fecha|date:"d F y" }}</td>
+                    <td>{{ venta.producto.descripcion }}</td>
+                    <td>${{ venta.utilidad }}</td>
+                    <td>${{ venta.producto.precio_venta }}</td>
+                    <td>{{ venta.cantidad }}</td>
+                    <td>${{ venta.total }}</td>
                 </tr>
                 {% endfor %}
             </table>

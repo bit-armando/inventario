@@ -96,6 +96,8 @@ class Salida(models.Model):
     cantidad = models.IntegerField()
     fecha = models.DateTimeField()
     empleado = models.CharField(default='', max_length=50)
+    total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    utilidad = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
         return str(self.fecha)

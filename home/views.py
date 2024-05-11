@@ -1,6 +1,7 @@
 from django.views.generic import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.db.models import Q
 from django.contrib.auth import logout
@@ -175,14 +176,20 @@ def registrar_salida(request):
 
     try:
         producto_existente = Inventario.objects.get(producto=producto)
-        producto_existente.cantidad -= int(cantidad)
-        producto_existente.save()
+        if producto_existente.cantidad < int(cantidad):
+            messages.error(request, 'No hay suficiente producto en el inventario')
+            return redirect('ventas')
+        else:
+            producto_existente.cantidad -= int(cantidad)
+            producto_existente.save()
 
-        total = int(cantidad) * producto.precio_venta
-        Salida(producto=producto, cantidad=int(cantidad),
-               fecha=date.today(), empleado=str(request.user)).save()
+            total = int(cantidad) * producto.precio_venta
+            utilidad = (producto.precio_venta - producto.precio_unitario) * int(cantidad)
+            Salida(producto=producto, cantidad=int(cantidad), total=total, utilidad=utilidad,
+                fecha=date.today(), empleado=str(request.user)).save()
 
     except Inventario.DoesNotExist:
+        messages.error(request, 'El producto no existe en el inventario')
         return redirect('ventas')
 
     return redirect('ventas')
@@ -216,23 +223,16 @@ class MostrarVentas(LoginRequiredMixin, ListView):
         """Utilidades para todo el inventario"""
         total = 0
         for producto in Salida.objects.all():
-            total += ((producto.producto.precio_venta -
-                      producto.producto.precio_unitario) * producto.cantidad)
+            total += producto.utilidad
         return total
 
     def calcular_total_venta(self, producto):
         """Total de venta por producto"""
-        total_ventas_producto = []
+        total_ventas = 0
+        for venta in Salida.objects.all():
+            total_ventas += venta.total
 
-        # Obtener todas las incidencias del producto
-        incidencias = Inventario.objects.filter(producto=producto)
-
-        # Calcular el total de ventas para cada incidencia del producto dado
-        for incidencia in incidencias:
-            total_individual = incidencia.producto.precio_venta * incidencia.cantidad
-            total_ventas_producto.append(total_individual)
-
-        return total_ventas_producto
+        return total_ventas
 
     def total_ventas(self):
         total = 0
@@ -250,9 +250,9 @@ class MostrarVentas(LoginRequiredMixin, ListView):
             empleado=self.request.user.username
         ).order_by('-id_salida')
 
-        for producto in context['Salidas']:
-            producto.utilidad = self.calcular_utilidad(producto.producto)
-            producto.total = self.calcular_total_venta(producto.producto)
+        # for producto in context['Salidas']:
+        #     producto.utilidad = self.calcular_utilidad(producto.producto)
+        #     producto.total = self.calcular_total_venta(producto.producto)
 
         return context
 
