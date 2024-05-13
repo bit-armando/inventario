@@ -39,6 +39,8 @@
                     <input id="buscar" type="image" src="{% static "images/search.png" %}">
                 </form>
                 <button onclick="window.modal.showModal()">Registrar Venta</button>
+                <button onclick="window.modal2.showModal()" style="margin-left: 15px">Editar Informacion Venta</button>
+
             </div>
             <div class="totales">
                 <div class="der">
@@ -70,11 +72,33 @@
                 <label for="cantidad">Cantidad: <br></label>
                 <input name="cantidad" type="number" id="cantidad"/>
                 
-                <div class="">
+                <div class="actualizar">
                     <input type="submit" value="Registrar Venta">
                 </div>
             </form>
-            <button onclick="window.modal.close()">Cerrar</button>
+            <button onclick="window.modal.close()" style="margin-left: 120px">Cerrar</button>
+        </div>
+    </dialog>
+
+    <dialog class="modal" id="modal2">
+        <div class="info-mod">
+            <h2>Actualizar Venta</h2>
+            <form action="{% url "actualizar_ventas" %}" method="post" class="editar">
+                {% csrf_token %}
+                <label for="editar">ID venta: <br></label>
+                <select name="salida-editar" id="categoria-form">
+                    {% for salida in ventas_usuario %}
+                    <option value={{salida.id_salida}}>{{salida.id_salida}}</option>
+                    {% endfor %}                    
+                </select>
+                <br>
+                <label for="editar">Cantidad nueva: <br></label>
+                <input name="cantidad-nueva" type="number" id="cantidad"/>
+                <div class="actualizar">
+                    <input type="submit" value="Actualizar">
+                </div>
+            </form>
+            <button onclick="window.modal2.close()" style="margin-left: 120px">Cerrar</button>
         </div>
     </dialog>
 

@@ -204,6 +204,10 @@ input {
     background-color: #E4E2E2;
 }
 
+.info-mod p {
+    margin-bottom: 5px;
+}
+
 #total,
 #total-cant {
     text-align: center;
@@ -246,15 +250,11 @@ label {
     background-color: rgba(0, 0, 0, 0.352);
 }
 
-.info-mod {
+.mod {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.info-mod p {
-    margin-bottom: 5px;
 }
 
 .modal button {
