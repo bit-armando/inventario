@@ -105,11 +105,11 @@
     <section class="tabla">
             <table>
                 <tr>
+                    <th>ID venta</th>
                     <th>Empleado</th>
                     <th>Producto</th>
                     <th>Clave</th>
                     <th>Fecha</th>
-                    <th>Descripción</th>
                     <th>Utilidad</th>
                     <th>Precio de venta</th>
                     <th>Cantidad</th>
@@ -117,11 +117,11 @@
                 </tr>
                 {% for venta in Salidas %}
                 <tr>
+                    <td>{{ venta.id_salida }}</td>
                     <td>{{ venta.empleado }}</td>
                     <td>{{ venta.producto.producto }}</td>
                     <td>{{ venta.producto.id_producto }}</td>
                     <td>{{ venta.fecha|date:"d F y" }}</td>
-                    <td>{{ venta.producto.descripcion }}</td>
                     <td>${{ venta.utilidad }}</td>
                     <td>${{ venta.producto.precio_venta }}</td>
                     <td>{{ venta.cantidad }}</td>
