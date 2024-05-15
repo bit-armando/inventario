@@ -24,11 +24,6 @@ h1 {
     color: white;
 }
 
-header p {
-    font-size: 1.25em;
-    font-weight: bold;
-}
-
 a {
     cursor: auto;
 }
@@ -49,72 +44,11 @@ button:hover {
     border-color: #f27506;
 }
 
-header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f27506;
-}
-
-header .container {
-    width: 1400px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-}
-
 section {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: whitesmoke;
-}
-
-.logo {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-img {
-    width: 85px;
-    height: 80px;
-    margin-right: 10px;
-}
-
-.cuenta {
-    display: flex;
-    flex-direction: row;
-}
-
-.cuenta img {
-    height: 80px;
-    width: 80px;
-}
-
-.user {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-#cerrar-sesion {
-    font-weight: 600;
-    background: none;
-    color: white;
-    border: solid 2px white;
-    border-radius: 16px;
-    padding: 5px 10px;
-    margin-top: 15px;
-}
-
-#cerrar-sesion:hover {
-    color: black;
-    border: solid 2px black;
-    background-color: white;
 }
 
 /*Inicio navegacion*/
