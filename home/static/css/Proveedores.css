@@ -230,6 +230,15 @@ input {
     background: none;
 }
 
+#nombre, #telefono, #email{
+    width: 325px;
+    height: 50px;
+    border-radius: 16px;
+    border: solid 2px black;
+    padding: 0 15px;
+    background-color: rgb(245, 242, 232);
+}
+
 select {
     font-size: 1em;
     width: 325px;
