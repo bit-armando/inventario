@@ -138,6 +138,13 @@ input {
     background-color: #E4E2E2;
 }
 
+.info-mod {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .info-mod p {
     margin-bottom: 5px;
 }
