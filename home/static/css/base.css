@@ -112,3 +112,17 @@ section input{
     margin-bottom: 15px;
     background-color: #bdbec0;
 }
+
+.cuenta{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
