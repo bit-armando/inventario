@@ -63,52 +63,47 @@ header nav{
     font-weight: bold;
 }
 
-section{
+.logo {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    flex-direction: column;
-    height: 90vh;
-}
-
-section div{
-    display: flex;
-    justify-content: center;
+    flex-direction: row;
     align-items: center;
 }
 
-section .container{
+img {
+    width: 85px;
+    height: 80px;
+    margin-right: 10px;
+}
+
+.cuenta {
+    display: flex;
+    flex-direction: row;
+}
+
+.cuenta img {
+    height: 80px;
+    width: 80px;
+}
+
+.user {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
 }
 
-section a{
-    margin: 5px 0px;
+#cerrar-sesion {
+    font-weight: 600;
+    background: none;
+    color: white;
+    border: solid 2px white;
+    border-radius: 16px;
+    padding: 5px 10px;
+    margin-top: 15px;
 }
 
-section h1, p{
-    margin: 0;
-}
-
-section a, p{
-    font-size: 1em;
-}
-
-section .input{
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-section input{
-    font-size: 1.25em;
-    padding: 10px 25px;
-    border-radius: 15px;
-    margin-bottom: 15px;
-    background-color: #bdbec0;
+#cerrar-sesion:hover {
+    color: black;
+    border: solid 2px black;
+    background-color: white;
 }
