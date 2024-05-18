@@ -50,21 +50,21 @@ def registrar_compras(request):
     if request.method == 'POST':
         clave = request.POST['clave']
         cantidad = request.POST['cantidad']
+        
+        producto = Producto.objects.get(id_producto=clave)
+        total = int(cantidad) * producto.precio_unitario
+        
 
     if cantidad.strip() == '' or not cantidad.isdigit():
         return redirect('compras')
 
-    try:
-        producto = Producto.objects.get(id_producto=clave)
-    except Producto.DoesNotExist:
-        return redirect('compras')
 
     try:
         inventario_existente = Inventario.objects.get(producto=producto)
         inventario_existente.cantidad += int(cantidad)
         inventario_existente.save()
 
-        total = int(cantidad) * producto.precio_unitario
+        
         Entrada(producto=producto, cantidad=int(cantidad), total=total,
                 fecha=date.today(), empleado=request.user.username).save()
 
