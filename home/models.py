@@ -87,7 +87,7 @@ class Entrada(models.Model):
     empleado = models.CharField(default='', max_length=50)
 
     def __str__(self):
-        return str(self.fecha)
+        return str(self.id_entrada)
 
 
 class Salida(models.Model):
@@ -100,4 +100,4 @@ class Salida(models.Model):
     utilidad = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def __str__(self):
-        return str(self.fecha)
+        return str(self.id_salida)

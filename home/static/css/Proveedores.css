@@ -140,6 +140,15 @@ img {
     margin-right: 20px;
 }
 
+#entrada{
+    width: 325px;
+    height: 50px;
+    border-radius: 16px;
+    border: solid 2px black;
+    padding: 0 15px;
+    background-color: rgb(245, 242, 232);
+}
+
 #buscar {
     width: 25px;
     height: 25px;
