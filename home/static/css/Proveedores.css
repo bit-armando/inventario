@@ -145,6 +145,15 @@ img {
     height: 25px;
 }
 
+#entrada{
+    width: 325px;
+    height: 50px;
+    border-radius: 16px;
+    border: solid 2px black;
+    padding: 0 15px;
+    background-color: rgb(245, 242, 232);
+}
+
 input {
     font-size: 1em;
     border: none;
