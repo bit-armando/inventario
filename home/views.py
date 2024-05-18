@@ -214,11 +214,11 @@ def actualizar_ventas(request):
         return redirect('ventas')
 
     try:
-        cantidad_antigua = inventario_existente + cantidad_folio
-        cantidad_actulizada = cantidad_antigua - int(cantidad_nueva)
+        cantidad_antigua = inventario_existente - cantidad_folio
+        cantidad_actulizada = cantidad_antigua + int(cantidad_nueva)
 
         salida.cantidad = int(cantidad_nueva)
-        salida.total = producto.precio_venta * int(cantidad_nueva)
+        salida.total = producto.precio_unitario * int(cantidad_nueva)
         salida.utilidad = (producto.precio_venta -
                            producto.precio_unitario) * int(cantidad_nueva)
         salida.save()
@@ -250,14 +250,14 @@ class MostrarVentas(LoginRequiredMixin, ListView):
         else:
             return Salida.objects.order_by('-id_salida')
 
-    # def calcular_utilidad(self, producto, cantidad):
-    #     """Para productos individuales"""
-    #     inventario = Inventario.objects.get(producto=producto)
-    #     cantidad_nueva = Salida.objects.get(
-    #         producto=producto, cantidad=cantidad)
-    #     utilidad = (inventario.producto.precio_venta -
-    #                 inventario.producto.precio_unitario) * int(cantidad_nueva.cantidad)
-    #     return utilidad
+    def calcular_utilidad(self, producto, cantidad):
+        """Para productos individuales"""
+        inventario = Inventario.objects.get(producto=producto)
+        cantidad_nueva = Salida.objects.get(
+            producto=producto, cantidad=cantidad)
+        utilidad = (inventario.producto.precio_venta -
+                    inventario.producto.precio_unitario) * int(cantidad_nueva.cantidad)
+        return utilidad
 
     def total_utilidades(self):
         """Utilidades para todo el inventario"""
@@ -290,9 +290,9 @@ class MostrarVentas(LoginRequiredMixin, ListView):
             empleado=self.request.user.username
         ).order_by('-id_salida')
 
-        # for producto in context['Salidas']:
-        #     producto.utilidad = self.calcular_utilidad(
-        #         producto.producto, producto.cantidad)
+        for producto in context['Salidas']:
+            producto.utilidad = self.calcular_utilidad(
+                producto.producto, producto.cantidad)
 
         return context
 
